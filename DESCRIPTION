@@ -24,3 +24,5 @@ Imports:
     readr,
     tibble,
     tidyr
+URL: https://github.com/stopsack/prostateredcap
+BugReports: https://github.com/stopsack/prostateredcap/issues
