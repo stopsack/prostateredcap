@@ -313,8 +313,11 @@ load_prostate_redcap <- function(labelled_csv, deidentify = TRUE) {
       cntadt    = factor(unknowns(`Continuous ADT`)),
       tissue    = factor(unknowns(`Sample Type`)),
       smp_pros  = fct_other(tissue, keep = "Prostate", other_level = "Non-prostate"),
-      smp_type  = fct_other(tissue, keep = c("Prostate", "Bone", "Lymph node"),
-                            other_level = "Visceral/soft tissue"),
+      smp_type  = fct_other(tissue, keep = c("Prostate", "Bone", "Lymph Node", "Liver", "Lung"),
+                            other_level = "Other soft tissue"),
+      smp_type  = fct_recode(tissue, `Lymph node` = "Lymph Node"),
+      smp_type  = fct_collapse(smp_type, Visceral = c("Liver", "Lung")),
+      smp_type  = fct_relevel(smp_type, "Prostate", "Lymph node", "Bone", "Visceral", "Other soft tissue"),
       # Unsure how these two variables are supposed to be used:
       pur_rev   = factor(`Reviewed for Tumor Purity`),
       pur_remov = factor(`Removed for Low Tumor Purity`)) %>%
@@ -328,12 +331,15 @@ load_prostate_redcap <- function(labelled_csv, deidentify = TRUE) {
           is_crpc == "Yes" & crpc_date <= smpdate                   ~ "Non-metastatic castration-resistant",
         dzextent %in% c("Localized", "Regional nodes") &
           (is_crpc != "Yes" | crpc_date > smpdate)                  ~ as.character(dzextent),
+        dzextent == "Metastatic" &
+          grepl("N/A-", is_crpc, fixed = TRUE)                      ~ "Metastatic, variant histology",
         dzextent=="Metastatic" &
           (is_crpc == "No" | (is_crpc == "Yes" & crpc_date > smpdate))  ~ "Metastatic hormone-sensitive",
         dzextent == "Metastatic" &
-          (is_crpc != "No" & crpc_date <= smpdate)                  ~ "Metastatic castration-resistant",
-        dzextent == "Metastatic" &
-          grepl("N/A-", is_crpc, fixed = TRUE)                      ~ "Metastatic, variant histology")),
+          (is_crpc != "No" & crpc_date <= smpdate)                  ~ "Metastatic castration-resistant")),
+      dzextent = fct_relevel(dzextent, "Localized", "Regional nodes", "Metastatic hormone-sensitive",
+                             "Non-metastatic castration-resistant", "Metastatic castration-resistant",
+                             "Metastatic, variant histology"),
       primmet = case_when(
         dzextent %in% c("Localized", "Regional nodes") ~ "Primary",
         dzextent %in% c("Metastatic castration-resistant",

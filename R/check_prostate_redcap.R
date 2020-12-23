@@ -44,7 +44,10 @@ qc_criteria_smp <- function() {
     "Missing disease extent",                   expr(!is.na(dzextent)),
     "Sample date after last follow-up",         expr(!(smp_os_mos < 0)),
     "Localized/reg. nodes sample; met_date before sample",   expr(!(primmet == "Primary" & smp_met_mos < 0.5)),
-    "Metastatic sample; met_date after sample", expr(!(primmet == "Metastatic" & smp_met_mos > 0.5)),
+    "Metastatic sample; met_date after sample", expr(!(dzextent %in% c("Metastatic castration-resistant",
+                                                                       "Metastatic hormone-sensitive",
+                                                                       "Metastatic, variant histology") &
+                                                         smp_met_mos > 0.5)),
     "Localized sample; stage N1 or M1",         expr(!(dzextent == "Localized" &
                                                          stage_for_qc %in% c("N1 M0", "M1"))),
     "Regional nodes sample; stage M1",          expr(!(dzextent == "Regional nodes" &
@@ -142,7 +145,7 @@ check_prostate_redcap <- function(data,
   # that are recommended for analyses
   if(recommended_only == TRUE) {
     qc_pts_data <- qc_pts_data %>%
-      select(ptid, agedx, race4, smoking, bx_gl34, psadx, psadxcat, lnpsa,
+      select(ptid, agedx, race4, race3, smoking, bx_gl34, psadx, psadxcat, lnpsa,
              stage, clin_tstage, clin_nstage, mstage, rxprim, rxprim_oth, rxprim_rp,
              rxprim_adt, rxprim_chemo, rxprim_xrt, rxprim_other, rp_gl34,
              path_t, path_n, is_crpc, crpc_event, is_met,
