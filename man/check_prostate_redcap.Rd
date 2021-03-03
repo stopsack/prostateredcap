@@ -62,5 +62,5 @@ pts_smp_qc <- check_prostate_redcap(pts_smp, recommended_only = TRUE)
 }
 \seealso{
 Overview of analysis-ready data elements:
-\url{https://stopsack.github.io/prostateredcap/reference/dataelements.html}
+\url{https://stopsack.github.io/prostateredcap/articles/dataelements.html}
 }
