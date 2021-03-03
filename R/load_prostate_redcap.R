@@ -111,7 +111,7 @@ unknowns <- function(x) {
 #' @export
 #'
 #' @seealso Overview of analysis-ready data elements:
-#'   \url{https://stopsack.github.io/prostateredcap/reference/dataelements.html}
+#'   \url{https://stopsack.github.io/prostateredcap/articles/dataelements.html}
 #' @examples
 #' \dontrun{
 #' # Load data:
