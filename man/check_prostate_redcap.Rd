@@ -18,11 +18,11 @@ check_prostate_redcap(
 returned by \code{\link{load_prostate_redcap}}.}
 
 \item{qc_crit_pts}{Criteria for checking the \code{pts} tibble.
-Defaults to the return of \code{\link{qc_criteria_pts}}.
+Defaults to the return of the \code{\link{qc_criteria_pts}} function.
 Custom criteria can be supplied instead.}
 
 \item{qc_crit_smp}{Criteria for checking the \code{smp} tibble.
-Defaults to the return of \code{\link{qc_criteria_smp}}.
+Defaults to the return of the \code{\link{qc_criteria_smp}} function.
 Custom criteria can be supplied instead.}
 
 \item{qc_level_pts}{Level of QC that the return \code{pts} tibble
@@ -44,7 +44,9 @@ List:
 \item \code{pts}: Patient-level data after QC.
 \item \code{smp}: Sample-level data after QC.
 \item \code{qc_pts}: Tibble of sequential exclusions for \code{pts}.
-\item \code{qc_pts}: Tibble of sequential exclusions for \code{smp}.
+\item \code{qc_smp}: Tibble of sequential exclusions for \code{smp}.
+The \code{qc_pts} and \code{qc_smp} tibbles can be used to extract
+information on which records failed which QC step.
 }
 }
 \description{
@@ -57,4 +59,8 @@ to cases that pass certain criteria.
 # Process output of load_prostate_redcap():
 pts_smp_qc <- check_prostate_redcap(pts_smp, recommended_only = TRUE)
 }
+}
+\seealso{
+Overview of analysis-ready data elements:
+\url{https://stopsack.github.io/prostateredcap/reference/dataelements.html}
 }

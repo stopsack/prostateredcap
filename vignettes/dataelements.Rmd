@@ -1,0 +1,112 @@
+---
+title: "Data elements to use for analyses"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Data elements to use for analyses}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+This data dictionary describes the full set of derived variables to use for analyses after running `load_prostate_redcap()` and `check_prostate_redcap(recommended_only = TRUE)`. Additional variables may be available, especially if disabling `recommended_only`.
+
+For definitions and underlying data collection, see the ~~data dictionary of the REDCap database~~.
+
+
+## Patient-level data
+
+Available in the `datasets$pts` dataset.
+
+### At diagnosis
+
+Variable | Description          | Levels                | Reasons for missing values
+---------+----------------------+-----------------------+------------------------
+`ptid`        | Patient ID. Will be sequential integer number in deidentified data. | -- | (No missing values)
+`age_dx`      | Age at prostate cancer diagnosis (in years) | Continuous | Date of birth or diagnosis unavailable (unusual^1^)
+`race4`       | Self-reported race, 4 categories | Asian; Black or African American; White; Other (the latter category to avoid identifiability in uncommon categories) | Not reported
+`race3`       | Self-reported race, 3 categories | Asian; White; Black | Another category or not reported
+`smoking`     | Self-reported smoking status around first contact | Current; Former; Never | Not reported        
+`bx_gl34`     | Gleason score at biopsy (diagnosis), grade-grouped | <7; 3+4; 4+3; 8; 9-10 | Not available or Gleason score sum 7 with unknown major/minor pattern
+`psa_dx`      | Prostate-specific antigen at cancer diagnosis (ng/ml) | Continuous | Unavailable     
+`psa_dxcat`   | Prostate-specific antigen at cancer diagnosis (ng/ml) | <4; 4-10; 10-20; >20 | Unavailable     
+`lnpsa_dx`    | Prostate-specific antigen at cancer diagnosis (ng/ml), log~e~-transformed | Continuous | Unavailable
+`stage`       | Clinical TNM stage at diagnosis | N0/NX M0; N1 M0; M1 | Metastasis (M) stage component unavailable (unusual^1^)
+`clin_tstage` | Clinical T (tumor) stage at diagnosis | T1/T2; T3; T4 | Not available (many are M1)
+`clin_nstage` | Clinical N (nodal) stage at diagnosis | N1 M0; N1 M0 | Not available (many are M1)
+`mstage`      | M (metastasis) stage at diagnosis | M0; M1 | Unavailable (unusual^1^)
+
+^1^ A dataset processed through `check_prostate_redcap()` excludes records with missing values in the key characteristics, age at diagnosis and M stage. Missingness will only occur if QC filters in `check_prostate_redcap()` were manually disabled.
+
+
+### Primary treatment
+
+Variable | Description          | Levels                | Reasons for missing values
+---------+----------------------+-----------------------+------------------------
+`rxprim`      | Primary treatment | Many levels due to treatment combinations; also "No Primary Therapy" and "Other" | Unknown
+`rxprim_rp`   | Primary treatment included radical prostatectomy | `TRUE`; `FALSE` | None (`FALSE` if no report about prostatectomy)
+`rxprim_adt`  | Primary treatment included androgen deprivation therapy | `TRUE`; `FALSE` | None (`FALSE` if no report about primary ADT)
+`rxprim_chemo`| Primary treatment included chemotherapy | `TRUE`; `FALSE` | None (`FALSE` if no report about primary chemotherapy)
+`rxprim_xrt`  | Primary treatment included radiation therapy | `TRUE`; `FALSE` | None (`FALSE` if no report about XRT)    
+`rxprim_other`| Primary treatment included free-text | `TRUE`; `FALSE` | None (`FALSE` if no free-text)
+`rxprim_oth`  | Primary treatment, other | Freetext | Predefined treatment combination used, or primary treatment unknown
+`rp_gl34`     | Gleason score at radical prostatectomy, grade-grouped | <7; 3+4; 4+3; 8; 9-10 | Not available, no radical prostatectomy, or Gleason score sum 7 with unknown major/minor pattern
+`path_t`      | pT (tumor) stage at radical prostatectomy | 2; 2a; 2b; 2c;; 3; 3a; 3b; 4 | Unknown or no radical prostatectomy
+`path_n`      | pN (nodal) stage at radical prostatectomy | 0; 1 | Unknown or no radical prostatectomy
+
+
+## Sample-level data
+
+Available in the `datasets$smp` dataset.
+
+Variable | Description          | Levels                | Reasons for missing values
+---------+----------------------+-----------------------+------------------------
+`ptid`        | Patient ID. Will be sequential integer number in deidentified data. Matches `ptid` in the `pts` dataset. | -- | (No missing values)
+`dmpid`       | Sample ID    | -- | (No missing values)
+`hist_smp`    | Histology of the sample | Adenocarcinoma / poorly differentiated carcinoma; Adenocarcinoma/poorly differentiated carcinoma with ductal or intraductal features; Adenocarcinoma/poorly differentiated carcinoma with Neuroendocrine features; Other (Text box); Pure Small Cell / Neuroendocrine Carcinoma | Unknown
+`dzextent_smp`    | Disease extent at sample (biopsy) | Localized; Regional nodes; Metastatic hormone-sensitive; Non-metastatic castration-resistant; Metastatic castration-resistant; Metastatic, variant histology | Unavailable (unusual, see footnote above)
+`dzextent_seq`    | Disease extent at sequencing | Localized; Regional nodes; Metastatic hormone-sensitive; Non-metastatic castration-resistant; Metastatic castration-resistant; Metastatic, variant histology | Unavailable (unusual, see footnote above)
+`ext_pros`    | Disease extent at sampling includes prostate | `TRUE`; `FALSE` | None (`FALSE` if no known prostate disease)
+`ext_lndis`   | Disease extent at sampling includes distant lymph nodes | `TRUE`; `FALSE` | None (`FALSE` if no known distant lymph node)
+`ext_bone`    | Disease extent at sampling includes bone | `TRUE`; `FALSE` | None (`FALSE` if no known bone disease)
+`ext_vis`     | Disease extent at sampling includes visceral disease | `TRUE`; `FALSE` | None (`FALSE` if no known visceral disease)
+`bonevol`     | Volume of bone disease at sample (biopsy) | High-Volume Bone Metastases; Low-Volume Bone Metastases | Unknown or none bone metastases
+`cntadt`      | Sample on continuous androgen deprivation therapy | Yes; No | Unknown
+`tissue`      | Sample tissue | Bone; Liver; Lung; Lymph Node; Other soft tissue; Prostate | None
+`smp_pros`    | Sample tissue is prostate | Prostate; Non-prostate | None
+`smp_tissue`  | Sample tissue (collapse) | Prostate; Lymph node; Bone; Visceral; Other soft tissue | None
+`primmet_smp`     | Disease extent at sample: primary or regional nodes ("Primary") *vs.* all others ("Metastatic") | Primary; Metastatic | Unknown
+`age_smp`     | Age at sample (biopsy, in years) | Continuous | Unavailable (unusual, see footnote above)
+`age_seq`     | Age at sequencing (in years) | Continuous | Unavailable (unusual, see footnote above)
+`dx_smp_mos`  | Time from diagnosis to sample (biopsy, in months) | Continuous | Unavailable (unusual, see footnote above)
+`adt_smp_mos` | Time from ADT initiation to sample (biopsy, in months) | Continuous | Unavailable
+`dx_seq_mos`  | Time from diagnosis to sequencing (in months) | Continuous | Unavailable (unusual, see footnote above)
+`dzvol`       | Disease volume at sample (biopsy): composite of disease extent (high if visceral) and bone volume (high if >=4 bone metastases) | Low-volume disease; high-volume disease | Non-metastatic disease at sample
+`denovom_smp` | *De-novo* metastatic disease: metastases since diagnosis (M1) *vs.* M0 at diagnosis and metastases detected after diagnosis but before sample | Metastatic recurrence; de-novo metastatic | Non-metastatic disease at sample
+`denovom_seq` | *De-novo* metastatic disease: metastases since diagnosis (M1) *vs.* M0 at diagnosis and metastases detected after diagnosis but before sequencing | Metastatic recurrence; de-novo metastatic | Non-metastatic disease at sequencing
+
+
+## Outcomes
+
+Setup:
+
+* Indicator (event) variables are in `datasets$pts`, because events can only occur once per person.
+* Time variables are in `datasets$smp`, because time intervals between start of follow-up and event depend on when start of follow-up is set and thus differ for different samples from the same person. For analyses, select samples and then merge patient data by `ptid`.
+
+
+Time variables will be missing:
+
+* If the patient is not at risk of the event at the start of follow up because the event already occurred, *e.g.*, metastasis when starting follow-up in metastatic castration-resistant disease.
+* If the patient is not at risk because the event cannot occur, *e.g.*, a variant histology indicates castration resistance and the patient will by definition not be followed for this outcome.
+* If the event time is unknown.
+
+Outcome: Transition | Population of Interest | Event variable (Descriptive) | Event variable (modeling) | Time variable
+--------------+-----------------+---------------+------------+----------------
+**Metastasis:** Sequencing to metastasis | Disease extent "Localized" or "Regional nodes" at sequencing | `is_met`: No; Yes | `met_event`: 0; 1 | `seq_met_mos`: Months from sequencing to metastasis or last clinic visit
+**CRPC:** Sequencing to castration resistance | Disease extent "Localized", "Regional nodes", or "Metastatic hormone-sensitive" at sequencing | `is_crpc`: No; Yes; N/A-Pure Other Histology at Diagnosis; N/A-Pure small cell/neuroendocrine at diagnosis | `crpc_event`: 0; 1; missing (if variant histology) | `seq_crpc_mos`: Months from sequencing to castration resistance or last clinic visit
+**Overall survival:** Sequencing to death | All | `is_dead`: Alive; Dead | `death_event`: 0; 1 | `seq_os_mos`: Months from sequencing to death or last contact

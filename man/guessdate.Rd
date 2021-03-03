@@ -16,7 +16,7 @@ Date vector in ISO date notation.
 \description{
 Uses \code{\link[lubridate]{parse_date_time}}
 to transform string vectors with different date formats into
-an R date vector, pritedn in ISO format.
+an R date vector, printed in ISO format.
 If only the year is provided, then
 the date will be set as June 30 of that year.
 }

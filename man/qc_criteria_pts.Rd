@@ -18,3 +18,10 @@ for restriction to observations that pass the criterion.
 \description{
 For use in \code{\link{check_prostate_redcap}}.
 }
+\examples{
+# Show all criteria:
+qc_criteria_pts()
+
+# Show code for criterion #3:
+qc_criteria_pts()$filter_criterion[[3]]
+}

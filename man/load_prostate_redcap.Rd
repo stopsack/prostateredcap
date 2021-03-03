@@ -2,22 +2,33 @@
 % Please edit documentation in R/load_prostate_redcap.R
 \name{load_prostate_redcap}
 \alias{load_prostate_redcap}
-\title{Load MSK-IMPACT Prostate REDCap Labelled CSV File}
+\title{Load MSK-IMPACT Prostate REDCap Labeled CSV File}
 \usage{
-load_prostate_redcap(labelled_csv, deidentify = TRUE)
+load_prostate_redcap(
+  labeled_csv,
+  deidentify = TRUE,
+  keep_also = list(baseline = NULL, freeze = NULL)
+)
 }
 \arguments{
-\item{labelled_csv}{CSV file with labels, exported from REDCap.
-Must be the labelled version and must contain dates
+\item{labeled_csv}{CSV file with labels, exported from REDCap.
+Must be the labeled version and must contain dates
 in order to derive time intervals.}
 
-\item{deidentify}{De-identify the returned data set?
-Drops all dates (keeping time intervals), rounds age and PSA,
-and replaces patient ID by an index number. Defaults to
-\code{TRUE} and should rarely, if ever, be turned off.}
+\item{deidentify}{De-identify the returned data set using
+\code{\link{deidentify_prostate_redcap}}? Defaults to
+\code{TRUE}. Should only be disabled if additional data need
+to be merged by identifiers, followed by calling
+\code{\link{deidentify_prostate_redcap}} separately.}
+
+\item{keep_also}{Optional. Additional patient-level variables to keep
+without editing. As applicable, they would need to be
+deidentified manually.
+Provide as list with vectors of variable names for baseline and freeze
+forms: \code{list(baseline = c("var1", "var2"), freeze = "varX")}.}
 }
 \value{
-List of two labelled tibbles (data frames):
+List of two labeled tibbles (data frames):
 \itemize{
 \item \code{pts}: Patient-level data
 \item \code{smp}: Sample-level data
@@ -25,6 +36,9 @@ List of two labelled tibbles (data frames):
 
 Access variables labels in RStudio via \code{\link[utils]{View}}
 or using \code{\link{attr}(., "label")}.
+
+The warning message, \code{Duplicated column names deduplicated}, is
+expected due to the design of the REDCap dataset.
 }
 \description{
 Loads, merges, reformats, corrects, and labels
@@ -36,17 +50,21 @@ It is recommended that the returned list is next processed by
 The following edits and assumptions are made:
 \enumerate{
 \item Potentially incomplete date variables are converted to
-date vectors, using \code{\link{guessdate}}.
+date format, using \code{\link{guessdate}}.
 \item Various missingness indicators in strings and factors,
 \code{c("Unknown / Not Reported", "N/A", "NA", "Unknown", "X", "x")},
 are converted to \code{NA}.
-\item "Undetectable" PSA is set to 0, PSA \code{">x"} is set to \code{x + 1}.
+\item "Undetectable" PSA is set to 0, PSA \code{">x"} is set to \code{x + 1},
+PSA \code{"a-b"} (e.g., \code{4.5-4.7}) is set to the mean of the two
+values.
 \item Clinical T and N stage variables are set to missing if M1.
-\item Event dates for metastases (\code{met_date}) and castration resistance
-(\code{crpc_date}) are set:
+\item Event dates and follow-up time for metastases (\code{met_date}),
+castration resistance (\code{crpc_date}), and death are set:
 \itemize{
-\item To the last clinic visit (\code{lastvisit})
-if the event has not occurred.
+\item Event date is the last clinic visit (\code{lastvisit})
+if a CRPC/metastases event has not occurred.
+\item Event date is the last follow up/contact (\code{lastfu})
+if last known survival status is alive.
 \item If stage is M1 and the recorded metastasis date is no more than
 1 month discrepant, \code{met_date} is set to the diagnosis
 date (\code{dxdate}).
@@ -54,18 +72,23 @@ date (\code{dxdate}).
 the castration resistance date (\code{crpc_date}) is the date of
 diagnosis and the event indicator for survival analyses
 (\code{event_crpc}) is \code{NA}.
+\item Time intervals for these three survival outcomes are calculated
+from the time of sequencing. For late-entry survival models,
+time intervals from diagnosis to sequencing and from sample/biopsy to
+sequencing are also provided.
 }
 \item Disease extent, distinguishing CRPC from castration-sensitive disease,
-at sampling is based on the sample date and the date of the sample.
-If the samples was obtained before the CRPC date, or CRPC did not occur,
-the the sample is from castration-sensitive disease by definition.
+at sampling is based on the sample date and the date of castration
+resistance. If the samples was obtained before the CRPC date, or
+CRPC did not occur, the sample is from castration-sensitive disease
+by definition.
 }
 }
 \examples{
 \dontrun{
 # Load data:
 pts_smp <- load_prostate_redcap(
-  labelled_csv = "GUPIMPACTDatabaseFre_DATA_LABELS_2020-01-01_0001.csv")
+  labeled_csv = "GUPIMPACTDatabaseFre_DATA_LABELS_2020-01-01_0001.csv")
 
 # Access patient-level data:
 pts_smp$pts
@@ -74,6 +97,9 @@ pts_smp$pts
 pts_smp$smp
 
 # Pass 'pts_smp' to check_prostate_redcap() next
-
 }
+}
+\seealso{
+Overview of analysis-ready data elements:
+\url{https://stopsack.github.io/prostateredcap/reference/dataelements.html}
 }

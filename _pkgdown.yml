@@ -1,0 +1,15 @@
+url: https://stopsack.github.io/prostateredcap
+reference:
+- title: "Loading data"
+- contents:
+  - load_prostate_redcap
+  - deidentify_prostate_redcap
+- title: "Quality control of the loaded data"
+- contents:
+  - check_prostate_redcap
+  - qc_criteria_pts
+  - qc_criteria_smp
+- title: "Helper functions"
+- contents:
+  - guessdate
+

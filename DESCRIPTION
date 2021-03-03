@@ -1,6 +1,6 @@
 Package: prostateredcap
 Title: Load and check the MSK Prostate REDCap Prostate clinical database
-Version: 0.1.1
+Version: 0.2.0
 Authors@R: 
     person(given = "Konrad",
            family = "Stopsack",
@@ -26,3 +26,7 @@ Imports:
     tidyr
 URL: https://github.com/stopsack/prostateredcap
 BugReports: https://github.com/stopsack/prostateredcap/issues
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr

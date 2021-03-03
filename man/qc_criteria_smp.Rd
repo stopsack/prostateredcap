@@ -13,8 +13,18 @@ Tibble:
 \item \code{filter_criterion}: Expression that will be used in
 \code{\link[dplyr]{filter}}
 for restriction to observations that pass the criterion.
+\item \code{index}: Level of QC that can be provided to
+\code{\link{check_prostate_redcap}} in the \code{qc_level_pts} and
+\code{qc_level_smp} arguments.
 }
 }
 \description{
 For use in \code{\link{check_prostate_redcap}}.
+}
+\examples{
+# Show all criteria:
+qc_criteria_smp()
+
+# Show code for criterion #4:
+qc_criteria_smp()$filter_criterion[[4]]
 }
