@@ -120,13 +120,13 @@
 <li>
 <p><strong>Data processing for analyses using the prostateredcap package</strong> – described in detail in the <a href="articles/prostateredcap.html">Get Started</a> vignette.</p>
 <ul>
-<li><p>Export REDCap dataset in “Labeled CSV” format. (Because data collection involves protected health information, raw datasets cannot be shared. To test the process without having an actual dataset at hand yet, the <a href="articles/prostateredcap.html">Get Started</a> vignette uses an example dataset.)</p></li>
+<li><p>Export REDCap dataset in “Labeled CSV” format. (Because data collection involves protected health information, raw datasets cannot be shared. To test the process without having an actual dataset at hand yet, the <a href="articles/prostateredcap.html">Get Started</a> vignette uses an <a href="https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/SampleGUPIMPACTDatab_DATA_LABELS_2021-05-26.csv">example dataset</a>.)</p></li>
 <li><p>In R, <a href="articles/prostateredcap.html#install-the-prostateredcap-package-1">install the prostateredcap package</a> using <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("stopsack/prostateredcap")</a></code>.</p></li>
 <li>
 <p>Import the labelled CSV exported from REDCap using <code><a href="reference/load_prostate_redcap.html">load_prostate_redcap()</a></code>, which loads, merges, reformats, corrects, and labels the dataset (see <a href="reference/load_prostate_redcap.html#details">Details</a>). By default, this function will also pass the dataset through <code><a href="reference/deidentify_prostate_redcap.html">deidentify_prostate_redcap()</a></code> to remove protected health information.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stopsack/prostateredcap">prostateredcap</a></span><span class="op">)</span>
-<span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/load_prostate_redcap.html">load_prostate_redcap</a></span><span class="op">(</span>labeled_csv <span class="op">=</span> <span class="st">"GUPIMPACTDatabaseFre_DATA_LABELS_2020-01-01_0001.csv"</span><span class="op">)</span></code></pre></div>
+<span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/load_prostate_redcap.html">load_prostate_redcap</a></span><span class="op">(</span>labeled_csv <span class="op">=</span> <span class="st">"file_from_redcap.csv"</span><span class="op">)</span></code></pre></div>
 </li>
 <li>
 <p>Run automated quality control checks and exclusions of records that fail these checks using <code><a href="reference/check_prostate_redcap.html">check_prostate_redcap()</a></code>. By using <code>recommended_only = TRUE</code>, only data elements recommended for analyses will be returned.</p>
