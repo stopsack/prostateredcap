@@ -129,6 +129,7 @@ unknowns <- function(x) {
 load_prostate_redcap <- function(labeled_csv,
                                  deidentify = TRUE,
                                  keep_also  = list(baseline = NULL,
+                                                   sample   = NULL,
                                                    freeze   = NULL)) {
   # Read REDCap file
   rcclin <- readr::read_csv(file = labeled_csv,
@@ -377,6 +378,15 @@ load_prostate_redcap <- function(labeled_csv,
           `Sites of Disease (choice=Other Soft Tissue)` ==
           "Checked",
         TRUE, FALSE)),
+      ext_liver   = factor(if_else(
+        `Sites of Disease (choice=Liver)` == "Checked",
+        TRUE, FALSE)),
+      ext_lung   = factor(if_else(
+        `Sites of Disease (choice=Lung)` == "Checked",
+        TRUE, FALSE)),
+      ext_other   = factor(if_else(
+        `Sites of Disease (choice=Other Soft Tissue)` == "Checked",
+        TRUE, FALSE)),
       bonevol   = factor(unknowns(`Volume of Bone Metastases at Time of Collection`)),
       cntadt    = factor(unknowns(`Continuous ADT`)),
       tissue    = factor(unknowns(`Sample Type`)),
@@ -384,14 +394,15 @@ load_prostate_redcap <- function(labeled_csv,
                             other_level = "Non-prostate"),
       smp_tissue  = fct_other(tissue, keep = c("Prostate", "Bone", "Lymph Node",
                                              "Liver", "Lung"),
-                            other_level = "Other soft tissue"),
-      smp_tissue  = fct_recode(tissue, `Lymph node` = "Lymph Node"),
+                              other_level = "Other soft tissue"),
+      smp_tissue  = fct_recode(smp_tissue, `Lymph node` = "Lymph Node"),
       smp_tissue  = fct_collapse(smp_tissue, Visceral = c("Liver", "Lung")),
       smp_tissue  = fct_relevel(smp_tissue,
-                              "Prostate", "Lymph node", "Bone",
-                              "Visceral", "Other soft tissue"),
+                                "Prostate", "Lymph node", "Bone",
+                                "Visceral", "Other soft tissue"),
       pur_rev   = factor(`Reviewed for Tumor Purity`),
-      pur_remov = factor(`Removed for Low Tumor Purity`)) %>%
+      pur_remov = factor(`Removed for Low Tumor Purity`),
+      select(., any_of(keep_also$sample))) %>%
     # Derive variables for which data from "pts" are needed:
     left_join(pts %>% select(ptid, stage, age_dx, dxdate, met_date,
                              is_met_for_qc = is_met,

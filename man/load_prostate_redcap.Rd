@@ -7,7 +7,7 @@
 load_prostate_redcap(
   labeled_csv,
   deidentify = TRUE,
-  keep_also = list(baseline = NULL, freeze = NULL)
+  keep_also = list(baseline = NULL, sample = NULL, freeze = NULL)
 )
 }
 \arguments{

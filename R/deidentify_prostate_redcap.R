@@ -28,7 +28,7 @@ deidentify_prostate_redcap <- function(data) {
            ptid2    = row_number())
   smp <- data$smp %>%
     left_join(pts %>% select(ptid, ptid2), by = "ptid") %>%
-    select(-ptid, -smpdate) %>%
+    select(-ptid, -smpdate, -seqdate) %>%
     mutate(age_smp = as.numeric(round(age_smp, digits = 1)),
            age_seq = as.numeric(round(age_seq, digits = 1))) %>%
     select(ptid = ptid2, everything()) %>%

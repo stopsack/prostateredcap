@@ -1,6 +1,6 @@
 Package: prostateredcap
 Title: Load and check the MSK Prostate REDCap Prostate clinical database
-Version: 0.2.0
+Version: 0.2.1
 Authors@R: 
     person(given = "Konrad",
            family = "Stopsack",

@@ -1,0 +1,111 @@
+---
+title: "Getting started with an example dataset"
+output: html_vignette
+vignette: >
+  %\VignetteIndexEntry{Getting started with an example dataset}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Install the prostateredcap package
+
+This step is only required once. To install (or update) the prostateredcap package from [GitHub](https://stopsack.github.io/prostateredcap), use the remotes package:
+
+``` r
+install.packages("remotes")  # skip if 'remotes' package is already installed
+remotes::install_github("stopsack/prostateredcap")
+```
+
+
+## An example dataset
+
+The prostateredcap R package contains an example dataset of the prostate cancer database in the same format as it would be exported from REDCap as a "labeled CSV." All data in the example dataset are designed to mimick real clinical data but do not correspond to any real patients.
+
+First, load the dplyr package for data handling, and take a look at the raw example dataset provided as part of the prostateredcap package.
+
+```{r load_raw, message = FALSE}
+library(dplyr)
+
+raw_data <- system.file("extdata",
+                        "SampleGUPIMPACTDatab_DATA_LABELS_2021-05-26.csv",
+                        package = "prostateredcap")
+
+readr::read_csv(file = raw_data) %>% 
+  print(n_extra = 0)  # do not print all other columns
+```
+
+The dataset, as a typical REDCap export, contains multiple rows per person, with each of the REDCap "forms" (baseline data, sample data, ...) in a separate row and blank values for variables not part of that "form."
+
+
+## Loading the data
+
+We will load the prostateredcap library, read in the same dataset again, and display its contents.
+
+```{r load_pr}
+library(prostateredcap)
+
+pts_smp <- load_prostate_redcap(raw_data)
+```
+
+Warnings that the example data, which has data on 8 patients, does contain all tumor/stage combinations are expected.
+
+`load_prostate_redcap()` has returned a list with two separate data elements: 
+
+  * `pts`, the data frame with patient-level data.
+  * `smp`, the sample-level data frame. `smp` can have multiple rows per patient that can be merged with the patient-level data `pts` using the `ptid` variable present in both datasets.
+
+The data in `pts_smp` is preprocessed. For example, rather than containing data on date of birth and date of diagnosis, the `pts` dataset contains age at diagnosis (`age_dx`, in years).
+
+```{r ex_preproc}
+pts_smp$pts
+
+pts_smp$smp
+```
+
+By default, the argument `deidentify = TRUE` is set in `load_prostate_redcap()`. Thus, any identifiers except the sample IDs, which are needed to merge in molecular data and are shared on cBioPortal, have been removed from the returned datasets.
+
+
+## Performing quality control
+
+To help ensure data quality, the prostateredcap package contains the function `check_prostate_redcap()`, which further processes the output of `load_prostate_redcap()` (in our example, `pts_smp`):
+
+  * A set of internal consistency checks is run on the `pts` and on the `smp` dataset.
+  * For each step, the number of records that pass and that are being excluded based on each criterion are recorded.
+  * The `pts` and `smp` datasets are returned, excluding samples that do not pass a given level of internal consistency checks. Exclusion of samples that do not pass checks can be disabled altogether.
+  * To obtain only those derived variables that are recommended for analyses, use `check_prostate_redcap(recommended_only = TRUE)`.
+
+Passing the data to `check_prostate_redcap()` with default parameters and reviewing the number of records that do not pass checks:
+
+```{r check_pr}
+pts_smp_qcd <- pts_smp %>%
+  check_prostate_redcap(recommended_only = TRUE)
+
+pts_smp_qcd$qc_pts
+```
+
+* Accessing `pts_smp_qcd$qc_pts` shows that 1 record failed on criterion 3 that filtered for records with missing data of birth or missing date of diagnosis. This record is excluded from the final "quality-controlled" return dataset, `pts_smp_qcd$pts`. Instead of `r nrow(pts_smp$pts)` records before quality control, this dataset only includes records on `r nrow(pts_smp_qcd$pts)` patients.
+* For the sample dataset `smp`, QC results are accessible as `pts_smp_qcd$qc_smp` and the final version via `pts_smp_qcd$smp`. The first step for sample-level data (with `index == 2`) is to check whether corresponding patient-level passed quality control.
+* The criteria  used by `check_prostate_redcap()` are defined in `qc_criteria_pts()` and `qc_criteria_smp()` and can be modified as needed.
+* By running `check_prostate_redcap(qc_level_pts = 1, qc_level_smp = 1)`, no exclusions will be performed. Provide different levels than `1` to define the last QC criterion to use for exclusions. `qc_pts` and `qc_smp` will still display what effect of all steps on the data *would* be.
+* The sequential exclusions and respective counts available in `qc_pts` and `qc_smp` can be used in study flowcharts of patient inclusion/exclusion.
+
+
+## Running analyses
+
+The data are now ready to be used for analyses. For example, the sample data and patient data can be merged into one data frame.
+
+```{r analyze}
+inner_join(pts_smp_qcd$smp,
+           pts_smp_qcd$pts,
+           by = "ptid") %>%
+  rmarkdown::paged_table()  # print formatted version
+```
+
+See the [data dictionary of all derived variables recommended for analyses](dataelements.html).
