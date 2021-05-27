@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prostateredcap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -83,6 +83,9 @@
     <span class="fas fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="../articles/prostateredcap.html">Get started</a>
 </li>
 <li>
   <a href="../reference/index.html">Reference</a>
@@ -148,19 +151,19 @@ for restriction to observations that pass the criterion.</p></li>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Show all criteria:</span>
 <span class='fu'>qc_criteria_pts</span><span class='op'>(</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 x 3</span><span>
+</div><div class='output co'>#&gt; <span style='color: #949494;'># A tibble: 7 x 3</span>
 #&gt;   label                                  filter_criterion index
-#&gt;   </span><span style='color: #949494;font-style: italic;'>&lt;chr&gt;</span><span>                                  </span><span style='color: #949494;font-style: italic;'>&lt;list&gt;</span><span>           </span><span style='color: #949494;font-style: italic;'>&lt;int&gt;</span><span>
-#&gt; </span><span style='color: #BCBCBC;'>1</span><span> All patients                           </span><span style='color: #949494;'>&lt;lgl [1]&gt;</span><span>            1
-#&gt; </span><span style='color: #BCBCBC;'>2</span><span> Incomplete record                      </span><span style='color: #949494;'>&lt;language&gt;</span><span>           2
-#&gt; </span><span style='color: #BCBCBC;'>3</span><span> Missing date of birth or diagnosis     </span><span style='color: #949494;'>&lt;language&gt;</span><span>           3
-#&gt; </span><span style='color: #BCBCBC;'>4</span><span> Metastatic/CRPC but no associated date </span><span style='color: #949494;'>&lt;language&gt;</span><span>           4
-#&gt; </span><span style='color: #BCBCBC;'>5</span><span> No lastvisit+met+CRPC date             </span><span style='color: #949494;'>&lt;language&gt;</span><span>           5
-#&gt; </span><span style='color: #BCBCBC;'>6</span><span> Metastases before diagnosis            </span><span style='color: #949494;'>&lt;language&gt;</span><span>           6
-#&gt; </span><span style='color: #BCBCBC;'>7</span><span> Missing stage                          </span><span style='color: #949494;'>&lt;language&gt;</span><span>           7</div><div class='input'>
+#&gt;   <span style='color: #949494; font-style: italic;'>&lt;chr&gt;</span>                                  <span style='color: #949494; font-style: italic;'>&lt;list&gt;</span>           <span style='color: #949494; font-style: italic;'>&lt;int&gt;</span>
+#&gt; <span style='color: #BCBCBC;'>1</span> All patients                           <span style='color: #949494;'>&lt;lgl [1]&gt;</span>            1
+#&gt; <span style='color: #BCBCBC;'>2</span> Incomplete record                      <span style='color: #949494;'>&lt;language&gt;</span>           2
+#&gt; <span style='color: #BCBCBC;'>3</span> Missing date of birth or diagnosis     <span style='color: #949494;'>&lt;language&gt;</span>           3
+#&gt; <span style='color: #BCBCBC;'>4</span> Metastatic/CRPC but no associated date <span style='color: #949494;'>&lt;language&gt;</span>           4
+#&gt; <span style='color: #BCBCBC;'>5</span> No lastvisit+met+CRPC date             <span style='color: #949494;'>&lt;language&gt;</span>           5
+#&gt; <span style='color: #BCBCBC;'>6</span> Metastases before diagnosis            <span style='color: #949494;'>&lt;language&gt;</span>           6
+#&gt; <span style='color: #BCBCBC;'>7</span> Missing stage                          <span style='color: #949494;'>&lt;language&gt;</span>           7</div><div class='input'>
 <span class='co'># Show code for criterion #3:</span>
 <span class='fu'>qc_criteria_pts</span><span class='op'>(</span><span class='op'>)</span><span class='op'>$</span><span class='va'>filter_criterion</span><span class='op'>[[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; !is.na(age_dx)</div></span></pre>
+</div><div class='output co'>#&gt; !is.na(age_dx)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

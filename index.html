@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prostateredcap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
       </span>
     </div>
 
@@ -43,6 +43,9 @@
     <span class="fas fa-home fa-lg"></span>
      
   </a>
+</li>
+<li>
+  <a href="articles/prostateredcap.html">Get started</a>
 </li>
 <li>
   <a href="reference/index.html">Reference</a>
@@ -87,43 +90,64 @@
 <a href="#prostateredcap-reproducible-clinical-genomic-research-on-prostate-cancer" class="anchor"></a>prostateredcap: Reproducible clinical-genomic research on prostate cancer</h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<p>Three modules for reproducible clinical-genomic research on prostate cancer are available:</p>
+<div id="modules-for-reproducible-clinical-research-on-prostate-cancer" class="section level2">
+<h2 class="hasAnchor">
+<a href="#modules-for-reproducible-clinical-research-on-prostate-cancer" class="anchor"></a>Modules for reproducible clinical research on prostate cancer</h2>
 <ol>
-<li><p><strong>Data dictionary for REDCap:</strong> Definitions for key data elements in clinical-genomic prostate cancer research (<del>described in this manuscript</del>). The field definitions can be <del><a href="https://pendingurl">downloaded as a template</a></del> that serves for creating a <a href="https://projectredcap.org/about/faq/">REDCap database</a> for data input.</p></li>
-<li><p><strong>Assessment of reproducibility:</strong> Empirical assessment of the validity of key data fields for reproducibility in the specific clinical setting (<del>as described in this manuscript</del>).</p></li>
-<li><p><strong>prostateredcap R package:</strong> Load and reshape the raw data from REDCap, perform automated quality control checks, and deidentify. The resulting sharable dataset is ready for statistical/bioinformatic analyses.</p></li>
+<li><p><strong>Data dictionary for REDCap:</strong> Definitions for key data elements in clinical-genomic prostate cancer research. The field definitions can be <del>downloaded as a template</del> that serves for creating a <a href="https://projectredcap.org/about/faq/">REDCap database</a> for data input.</p></li>
+<li><p><strong>Assessment of reproducibility:</strong> Empirical assessment of the validity of key data fields for reproducibility in the specific clinical setting (as described in Keegan <em>et al.</em>).</p></li>
+<li><p><strong>prostateredcap R package:</strong> Load and reshape the raw data from REDCap, perform automated quality control checks, and deidentify, using an R package available via Github. The resulting sharable dataset is ready for statistical/bioinformatic analyses.</p></li>
 </ol>
+</div>
 <div id="workflow" class="section level2">
 <h2 class="hasAnchor">
 <a href="#workflow" class="anchor"></a>Workflow</h2>
 <ol>
-<li><p>Review rationale and data definitions in the <del>accompanying manuscript</del>. Assemble team.</p></li>
-<li><p>Create a REDCap database using the <del><a href="https://pendingurl">database CSV template</a></del> and define access rights.</p></li>
-<li><p>Pilot annotations, review pilot, and expand data abstraction into REDCap. Conducting a formal quality control for reproducibility <del>as described for the MSK implementation</del> is recommended.</p></li>
-<li><p>Export REDCap dataset in “Labeled CSV” format. (Because data collection involves protected health information, the raw dataset cannot be shared. To test the process without having an actual dataset at hand yet, use <del>this dummy dataset</del>.)</p></li>
 <li>
-<p>In R, install (or update) the prostateredcap package from <a href="https://stopsack.github.io/prostateredcap">GitHub</a>. This step is only required once.</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"remotes"</span><span class="op">)</span>  <span class="co"># skip if 'remotes' package is already installed</span>
-<span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"stopsack/prostateredcap"</span><span class="op">)</span></code></pre></div>
+<p><strong>Design and implement the REDCap database</strong> – see Keegan <em>et al.</em></p>
+<ul>
+<li>Review rationale, create data definitions, assemble team.</li>
+<li>Create a REDCap database using the <del>database CSV template</del> and define access rights.</li>
+<li>Pilot annotations, review pilot, and expand data extraction into REDCap.</li>
+</ul>
 </li>
 <li>
+<p><strong>Assessment of reproducibility</strong> – see Keegan <em>et al.</em></p>
+<ul>
+<li>Conducting a formal quality control for reproducibility <del>as described for the MSK implementation</del> is recommended.</li>
+</ul>
+</li>
+<li>
+<p><strong>Data processing for analyses using the prostateredcap package</strong> – described in detail in the <a href="articles/prostateredcap.html">Get Started</a> vignette.</p>
+<ul>
+<li><p>Export REDCap dataset in “Labeled CSV” format. (Because data collection involves protected health information, raw datasets cannot be shared. To test the process without having an actual dataset at hand yet, the <a href="articles/prostateredcap.html">Get Started</a> vignette uses an example dataset.)</p></li>
+<li><p>In R, <a href="articles/prostateredcap.html#install-the-prostateredcap-package-1">install the prostateredcap package</a> using <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("stopsack/prostateredcap")</a></code>.</p></li>
+<li>
 <p>Import the labelled CSV exported from REDCap using <code><a href="reference/load_prostate_redcap.html">load_prostate_redcap()</a></code>, which loads, merges, reformats, corrects, and labels the dataset (see <a href="reference/load_prostate_redcap.html#details">Details</a>). By default, this function will also pass the dataset through <code><a href="reference/deidentify_prostate_redcap.html">deidentify_prostate_redcap()</a></code> to remove protected health information.</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/stopsack/prostateredcap">prostateredcap</a></span><span class="op">)</span>
 <span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/load_prostate_redcap.html">load_prostate_redcap</a></span><span class="op">(</span>labeled_csv <span class="op">=</span> <span class="st">"GUPIMPACTDatabaseFre_DATA_LABELS_2020-01-01_0001.csv"</span><span class="op">)</span></code></pre></div>
 </li>
 <li>
-<p>Run automated quality control checks and exclusions of records that fail these checks. By using <code>recommended_only = TRUE</code>, only data elements recommended for analyses will be returned.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<p>Run automated quality control checks and exclusions of records that fail these checks using <code><a href="reference/check_prostate_redcap.html">check_prostate_redcap()</a></code>. By using <code>recommended_only = TRUE</code>, only data elements recommended for analyses will be returned.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/check_prostate_redcap.html">check_prostate_redcap</a></span><span class="op">(</span><span class="va">datasets</span>, recommended_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="co"># View quality control results and exclusion criteria:</span>
 <span class="va">datasets</span><span class="op">$</span><span class="va">qc_pts</span>
 <span class="va">datasets</span><span class="op">$</span><span class="va">qc_smp</span></code></pre></div>
 </li>
-<li><p>Use the datasets for statistical and bioinformatic analyses: <code>datasets$pts</code> is the set of patient-level data; <code>datasets$smp</code> is the set of sample-level data. See <a href="articles/dataelements.html">data dictionary of elements recommended for analyses</a>.</p></li>
+</ul>
+</li>
 </ol>
+<ul>
+<li>Use the datasets for statistical and bioinformatic analyses: <code>datasets$pts</code> is the set of patient-level data; <code>datasets$smp</code> is the set of sample-level data. See <a href="articles/dataelements.html">data dictionary of elements recommended for analyses</a>.</li>
+</ul>
+<div id="references" class="section level3">
+<h3 class="hasAnchor">
+<a href="#references" class="anchor"></a>References</h3>
+<p>Keegan NM <em>et al.</em>, Clinical Annotations for Prostate Cancer Research: Defining Data Elements, Creating a Reproducible Analytical Pipeline, and Assessing Data Quality. (Preprint, 2021)</p>
+</div>
 </div>
 </div>
   </div>

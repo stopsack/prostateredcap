@@ -3,7 +3,8 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   dataelements: dataelements.html
-last_built: 2021-03-03T17:08Z
+  prostateredcap: prostateredcap.html
+last_built: 2021-05-27T12:36Z
 urls:
   reference: https://stopsack.github.io/prostateredcap/reference
   article: https://stopsack.github.io/prostateredcap/articles
