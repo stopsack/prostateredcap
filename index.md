@@ -28,13 +28,13 @@
 
 3. **Data processing for analyses using the prostateredcap package** -- described in detail in the [Get Started](articles/prostateredcap.html) vignette.
 
-   +  Export REDCap dataset in "Labeled CSV" format. (Because data collection involves protected health information, raw datasets cannot be shared. To test the process without having an actual dataset at hand yet, the [Get Started](articles/prostateredcap.html) vignette uses an example dataset.)
+   +  Export REDCap dataset in "Labeled CSV" format. (Because data collection involves protected health information, raw datasets cannot be shared. To test the process without having an actual dataset at hand yet, the [Get Started](articles/prostateredcap.html) vignette uses an [example dataset](https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/SampleGUPIMPACTDatab_DATA_LABELS_2021-05-26.csv).)
    + In R, [install the prostateredcap package](articles/prostateredcap.html#install-the-prostateredcap-package-1) using `remotes::install_github("stopsack/prostateredcap")`.
    + Import the labelled CSV exported from REDCap using `load_prostate_redcap()`, which loads, merges, reformats, corrects, and labels the dataset (see [Details](reference/load_prostate_redcap.html#details)). By default, this function will also pass the dataset through `deidentify_prostate_redcap()` to remove protected health information.
 
        ``` r
        library(prostateredcap)
-       datasets <- load_prostate_redcap(labeled_csv = "GUPIMPACTDatabaseFre_DATA_LABELS_2020-01-01_0001.csv")
+       datasets <- load_prostate_redcap(labeled_csv = "file_from_redcap.csv")
        ```
    
    + Run automated quality control checks and exclusions of records that fail these checks using `check_prostate_redcap()`. By using `recommended_only = TRUE`, only data elements recommended for analyses will be returned.

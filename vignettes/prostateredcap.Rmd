@@ -28,7 +28,7 @@ remotes::install_github("stopsack/prostateredcap")
 
 The prostateredcap R package contains an example dataset of the prostate cancer database in the same format as it would be exported from REDCap as a "labeled CSV." All data in the example dataset are designed to mimick real clinical data but do not correspond to any real patients.
 
-First, load the dplyr package for data handling, and take a look at the raw example dataset provided as part of the prostateredcap package.
+First, load the dplyr package for data handling, and take a look at the [raw example dataset provided as part of the prostateredcap package](https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/SampleGUPIMPACTDatab_DATA_LABELS_2021-05-26.csv).
 
 ```{r load_raw, message = FALSE}
 library(dplyr)
@@ -54,7 +54,7 @@ library(prostateredcap)
 pts_smp <- load_prostate_redcap(raw_data)
 ```
 
-Warnings that the example data, which has data on 8 patients, does contain all tumor/stage combinations are expected.
+Warnings that the example data, which has data on 8 patients, does not contain all tumor/stage combinations are expected.
 
 `load_prostate_redcap()` has returned a list with two separate data elements: 
 
@@ -102,8 +102,8 @@ pts_smp_qcd$qc_pts
 The data are now ready to be used for analyses. For example, the sample data and patient data can be merged into one data frame.
 
 ```{r analyze}
-inner_join(pts_smp_qcd$smp,
-           pts_smp_qcd$pts,
+inner_join(pts_smp_qcd$pts,
+           pts_smp_qcd$smp,
            by = "ptid") %>%
   rmarkdown::paged_table()  # print formatted version
 ```
