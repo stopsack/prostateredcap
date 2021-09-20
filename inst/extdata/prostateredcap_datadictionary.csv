@@ -1,0 +1,270 @@
+﻿Variable / Field Name,Form Name,Section Header,Field Type,Field Label,"Choices, Calculations, OR Slider Labels",Field Note,Text Validation Type OR Show Slider Number,Text Validation Min,Text Validation Max,Identifier?,Branching Logic (Show field only if...),Required Field?,Custom Alignment,Question Number (surveys only),Matrix Group Name,Matrix Ranking?,Field Annotation
+record_id,baseline_data,,text,Record ID,,,,,,y,,,,,,,
+birth_date,baseline_data,,text,Birth Date,,Answer Format: MM/DD/YYYY,,,,y,,,,,,,
+race,baseline_data,,radio,Self-Reported Race,"0, American Indian/Alaska Native | 1, Asian | 2, Native Hawaiian or Other Pacific Islander | 3, Black or African American | 4, White | 5, More Than One Race | 6, Unknown / Not Reported","Source Hierarchy:  
+1. Automated pull. 
+2. Initial Consultation note (if missing after automated pull).",,,,,,,,,,,
+ethnicity,baseline_data,,dropdown,Ethnicity,"0, Hispanic or Latino | 1, NOT Hispanic or Latino | 2, Unknown / Not Reported","Source Hierarchy: 
+1. Automated pull. 
+2. Initial Consultation note (if missing after automated pull).",,,,,,,,,,,
+smoking_status,baseline_data,,radio,Smoking Status at Diagnosis,"0, Never | 1, Former | 2, Current| 3, Unknown","Source Hierarchy: 
+1. Automated pull. 
+2. Initial Consultation note (if missing after automated pull).",,,,,,,,,,,
+initial_diagnosis_date,baseline_data,Initial Diagnosis,text,Date of Initial Diagnosis,,"Answer Format: MM/DD/YYYY
+
+Notes:
+o   Enter the date to the greatest level of granularity available. Use format ""MM/YYYY"" for month/year only and format ""YYYY"" for year only.
+o   FLAG FOR RESOLUTION if unable to find any approximate date.
+
+Source Hierarchy:
+1.  Pathology Report: date of first biopsy showing prostate cancer
+2.  Initial consultation note: MD-reported date of first biopsy showing prostatate cancer
+3. Initial consultation note: other MD-reported date of assumed diagnosis of prostate cancer, if treatment started outside without initial biopsy",,,,,,,,,,,
+initial_prostate_biopsy_date,baseline_data,,text,Date of Initial Prostate Biopsy,,"Answer Format: MM/DD/YYYY
+
+Notes: 
+o   Enter the date to the greatest level of granularity available. Use format ""MM/YYYY"" for month/year only and format ""YYYY"" for year only. 
+o   Enter date here ONLY for initial prostate biopsy (or TURP/TURBT if the patient did not have a prostate biopsy). Enter NA if patient did not have prostate biopsy/TURP/TURBT at diagnosis.
+
+Source Hierarchy:
+1.  Pathology Report: date of first biopsy showing prostate cancer
+2.  Initial consultation note (MD-reported date of first biopsy showing prostatate cancer)",,,,,,,,,,,
+gleason_diagnosis_sum,baseline_data,,dropdown,Sum Gleason at Diagnosis (Biopsy),"0, 2 | 1, 3 | 2, 4 | 3, 5 | 4, 6 | 5, 7 | 6, 8 | 7, 9 | 8, 10 | 9, Unknown | 10, N/A","Notes: 
+o   Enter ""Unknown"" if unable to retrieve data on Gleason grade.
+o   Enter ""N/A"" if patient did not have a prostate biopsy prior to initiating treatment.
+
+Source Hierarchy:
+1. MSK re-reviewed pathology. Always report the grade of the core with the highest grade.
+2. Initial Consultation note.
+3. Outside Pathology Report",,,,,,,,,,,
+gleason_diagnosis_primary,baseline_data,,dropdown,Primary Gleason Pattern at Diagnosis (Biopsy),"0, 1 | 1, 2 | 2, 3 | 3, 4 | 4, 5 | 5, Unknown | 6, N/A","Notes: 
+o   Enter ""Unknown"" if unable to retrieve data on Gleason grade.
+o   Enter ""N/A"" if patient did not have a prostate biopsy prior to initiating treatment.
+
+Source Hierarchy:
+1. MSK re-reviewed pathology. Always report the grade of the core with the highest grade.
+2. Initial Consultation note.
+3. Outside Pathology Report",,,,,,,,,,,
+gleason_diagnosis_secondary,baseline_data,,dropdown,Secondary Gleason Pattern at Diagnosis (Biopsy),"0, 1 | 1, 2 | 2, 3 | 3, 4 | 4, 5 | 5, Unknown | 6, N/A","Notes: 
+o   Enter ""Unknown"" if unable to retrieve data on Gleason grade.
+o   Enter ""N/A"" if patient did not have a prostate biopsy prior to initiating treatment.
+
+Source Hierarchy:
+1. MSK re-reviewed pathology. Always report the grade of the core with the highest grade.
+2. Initial Consultation note.
+3. Outside Pathology Report",,,,,,,,,,,
+diagnosis_histology,baseline_data,,checkbox,Histology at Diagnosis,"0, Adenocarcinoma / poorly differentiated carcinoma | 1, Adenocarcinoma/poorly differentiated carcinoma with neuroendocrine features | 2, Pure Small Cell / Neuroendocrine Carcinoma | 3, Adenocarcinoma/poorly differentiated carcinoma with ductal or intraductal features | 4, Other (Text box)","Notes: 
+o  If there is any note of neuroendocrine features made by a pathologist, enter Adenocarcinoma/poorly differentiated carcinoma with neuroendocrine features.
+o  If additional specimens from before treatment were reviewed (i.e., additional lymph node biopsy) and only those report an uncommon histology, choose that histology.
+
+Source Hierarchy:
+1. MSK-reviewed pathology
+2. Outside Pathology Report",,,,,,,,,,,
+histology_other,baseline_data,,text,Histology Other,,"Note: If selected 'Other' for Histology at Diagnosis, specify the histology.",,,,,"[diagnosis_histology(4)] = ""1""",,,,,,
+diagnosis_psa,baseline_data,,text,PSA at Diagnosis,,"Notes:  
+o  Take value closest PSA to Date of Diagnosis 
+o  Must be before to initiating treatment.  
+o  If no PSA is available before any treament, enter ""N/A"". 
+o  Report whatever number of decimal places are in the note. No need to round; 4, 4.0, and 4.00 are all okay.
+
+Source Hierarchy:
+1. Initial Consultation note.
+2. Laboratory report",,,,,,,,,,,
+clin_t,baseline_data,Clinical Staging at Diagnosis,dropdown,Clinical T Stage at Diagnosis,0 | 1 | 1a | 1b | 1c | 2 | 2a | 2b | 2c | 3 | 3a | 3b | 4 | X,"Notes:
+o  Enter 'X' if unknown. 
+o  If T stage at diagnosis is mentioned, but it is not documented if this is clinical or path staging, enter as Clinical T Stage at Diagnosis.
+o  Enter ""T3c"" (an obsolete stage) as ""T3b"".
+
+Source Hierarchy:
+Initial Consultation note (Urology or Rad Onc or Med Onc). (Do not seek further.)",,,,,,,,,,,
+clin_n,baseline_data,,dropdown,Clinical N Stage at Diagnosis (regional lymph node metastases),0 | 1 | X,"Notes:
+o  Enter 'X' if unknown. 
+o  If N stage at diagnosis is mentioned, but it is not documented if this is clinical or path staging, enter as Clinical N Stage at Diagnosis.
+o  If note only describes names of positive lymph nodes, code as N1 for these regional lymph node stations: pelvic, hypogastric, obturator, internal iliac, external iliac, sacral. Code as M1a for all other positive lymph nodes (including common iliac).
+o If description of lymph nodes includes ""likely"" or ""suspected"", consider as positive.  If ""equivocal"" or ""uncertain significance,"" consider as negative.
+
+Source Hierarchy:
+1. Radiology report at time of initial diagnosis. Not PET-PSMA.
+2. Initial Consultation note.
+3. First GU Oncology follow-up note, particularly if the Initial Consultation note mentioned that outside records were incomplete at that time.",,,,,,,,,,,
+clin_m,baseline_data,,dropdown,Clinical M Stage at Diagnosis,0 | 1 | 1a | 1b | 1c | X,"Notes:
+o  Enter 'X' if unknown or unclear and FLAG FOR RESOLUTION.
+o  If note only describes names of positive lymph nodes, code as N1 for these regional lymph node stations: pelvic, hypogastric, obturator, internal iliac, external iliac, sacral. Code as M1a for all other positive lymph nodes (""non-regional"").
+o  Code the highest level of: 
+    M1a = non-regional lymph node metastases only; 
+    M1b = bone metastases (may also have non-regional lymph node metastases); 
+    M1c = any other metastases (i.e., visceral; may also have lymph node or bone metastases).
+o   If it is not obvious whether to code M1a vs. M1b vs. M1c, then code ""M1"".
+
+Source Hierarchy:
+1. Radiology report at time of initial diagnosis. Not PET-PSMA.
+2. Initial Consultation note.
+3. First GU Oncology follow-up note, particularly if the Initial Consultation note mentioned that outside records were incomplete at that time, or if date of diagnosis is very close to MSK consultation and additional staging exams were being performed.",,,,,,,,,,,
+primary_therapy,baseline_data,Primary Therapy,dropdown,Primary Therapy,"0, Surgery | 1, Surgery + ADT | 2, Radiation | 3, Radiation + ADT | 4, Chemotherapy | 5, Chemotherapy + ADT | 6, ADT Alone | 7, ADT + Chemotherapy + RP | 8, ADT + RP + RT | 9, ADT + Chemo + RT | 10, Other | 11, ADT + Other | 12, Chemo + RT | 13, RP + RT | 14, No Primary Therapy","Notes: 
+o  Consider any treatment received within the first six months of diagnosis as primary treatment. 
+o  If patient received ADT because of positive margins or N1 (""adjuvant ADT"") within the first six months, code as Surgery (or Radiation) + ADT. 
+o  If patient received ADT prior to surgery or radiation (""neoadjuvant ADT""), code as Surgery (or Radiation) + ADT.  
+
+Source Hierarchy: 
+1. Initial Consultation note if >6 months after initial diagnosis date. 
+2. GU Oncology follow up note >6 months after initial diagnosis date.",,,,,,,,,,,
+primary_therapy_other,baseline_data,,text,Other Primary Therapy,,"Note: If selected 'Other' or 'Other+ADT'  for primary_therapy, specify what Other is.",,,,,"[primary_therapy] = ""10"" or [primary_therapy] = ""11""",,,,,,
+gleason_prost_sum,baseline_data,,dropdown,Sum Gleason at Prostatectomy,"0, 2 | 1, 3 | 2, 4 | 3, 5 | 4, 6 | 5, 7 | 6, 8 | 7, 9 | 8, 10 | 9, Unknown | 10, N/A","Notes: 
+o  Enter N/A if patient did not have a prostatectomy. 
+o  Enter ""Unknown"" if patient had or may have had a prostatectomy but unable to retrieve data on Gleason grade. 
+
+Source Hierarchy:
+1. MSK re-reviewed pathology. Always report the grade of the core with the highest grade.
+2. Initial Consultation note.",,,,,,,,,,,
+gleason_prost_primary,baseline_data,,dropdown,Primary Gleason Pattern at Prostatectomy,"0, 1 | 1, 2 | 2, 3 | 3, 4 | 4, 5 | 5, Unknown | 6, N/A","Notes: 
+o  Enter N/A if patient did not have a prostatectomy. 
+o  Enter ""Unknown"" if patient had or may have had a prostatectomy but unable to retrieve data on Gleason grade. 
+
+Source Hierarchy:
+1. MSK re-reviewed pathology. Always report the grade of the core with the highest grade.
+2. Initial Consultation note.",,,,,,,,,,,
+gleason_prost_secondary,baseline_data,,dropdown,Secondary Gleason Pattern at Prostatectomy,"0, 1 | 1, 2 | 2, 3 | 3, 4 | 4, 5 | 5, Unknown | 6, N/A","Notes: 
+o  Enter N/A if patient did not have a prostatectomy. 
+o  Enter ""Unknown"" if patient had or may have had a prostatectomy but unable to retrieve data on Gleason grade. 
+
+Source Hierarchy:
+1. MSK re-reviewed pathology. Always report the grade of the core with the highest grade.
+2. Initial Consultation note.",,,,,,,,,,,
+path_t,baseline_data,Pathologic Staging (if Primary Prostatectomy),dropdown,Pathologic T Stage at Diagnosis,"0, X | 2 | 2a | 2b | 2c | 3 | 3a | 3b | 4 | N/A","Notes:
+o  Enter N/A if patient did not have a prostatectomy. 
+o  Enter ""X"" if patient had or may have had a prostatectomy but T stage is unknown. 
+o  Do not include salvage prostatectomy.
+o  If unclear if T stage is clinical or from prostatectomy, do not enter here and report as Clinical T Stage.
+
+Source Hierarchy:
+1. MSK re-reviewed pathology.
+2. Initial Consultation note.
+3. First GU Oncology follow-up note, particularly if the Initial Consultation note mentioned that outside records were incomplete at that time.",,,,,,,,,,,
+path_n,baseline_data,,dropdown,Pathologic N Stage at Diagnosis,"0, x | 1, 0 | 2, 1 | 3, N/A","Notes:
+o  Enter N/A if patient did not have a prostatectomy. 
+o  Enter ""X"" if patient had or may have had a prostatectomy but N stage is unknown. 
+o  Do not include salvage prostatectomy.
+o  If unclear if N stage is clinical or from prostatectomy, do not enter here and report as Clinical N Stage.
+o  If pathology report/note only describes names of positive lymph nodes, code as N1 for these regional lymph node stations: pelvic, hypogastric, obturator, internal iliac, external iliac, sacral. Code as M1a for all other positive lymph nodes (""non-regional""; includes common iliac nodes).
+
+Source Hierarchy:
+1. MSK re-reviewed pathology.
+2. Initial Consultation note.
+3. First GU Oncology follow-up note, particularly if the Initial Consultation note mentioned that outside records were incomplete at that time.",,,,,,,,,,,
+dmp_id,sample_data,,text,DMP ID,,Answer Format: P-XXXXXXX,,,,,,,RH,,,,
+dmp_sample_id,sample_data,,text,DMP Sample ID,,Answer Format: P-XXXXXXX-TXX-IMXX,,,,,,,,,,,
+collection_date,sample_data,,text,Date of Collection,,"Answer Format: MM/DD/YYYY. Enter the date to the greatest level of granularity available. Use format ""MM/YYYY"" for month/year only and format ""YYYY"" for year only.",,,,,,y,,,,,
+sample_histology,sample_data,,radio,Histology for Sample,"0, Adenocarcinoma / poorly differentiated carcinoma | 1, Adenocarcinoma/poorly differentiated carcinoma with Neuroendocrine features | 2, Pure Small Cell / Neuroendocrine Carcinoma | 3, Adenocarcinoma/poorly differentiated carcinoma with ductal or intraductal features | 4, Other (Text box)","Note: If there is any note of neuroendocrine features made by a pathologist, enter Adenocarcinoma/poorly differentiated carcinoma with neuroendocrine features
+
+Source Hierarchy: MSK-reviewed pathology (only).",,,,,,,,,,,
+sample_histology_other,sample_data,,text,Histology (Other),,,,,,,"[sample_histology] = ""4""",,,,,,
+sample_location,sample_data,,dropdown,Sample Type,"0, Prostate | 1, Lymph Node | 2, Bone | 3, Lung | 4, Liver | 5, Other soft tissue","Notes: 
+o  ""Other soft tissue"" only applies to distant metastases, not to local extension of the prostate tumor.
+o  If unable to decide, FLAG FOR RESOLUTION.
+
+Source Hierarchy: Pathology (IMPACT) report.",,,,,,y,,,,,
+extent_collection,sample_data,,dropdown,Extent of Disease at Collection,"0, Localized | 1, Regional nodes | 2, Metastatic","Notes: 
+o  Choose highest value.
+o  This must be at least as high as NM stage at diagnosis.
+o  If unable to decide, FLAG FOR RESOLUTION.
+
+Source Hierarchy:
+1. Pathology Report.
+2. IMPACT report.
+2. GU Oncology note closest to the IMPACT testing (preferably afterwards).",,,,,,,RH,,,,
+sites_of_disease,sample_data,,checkbox,Sites of Disease,"0, Prostate/Prostate Bed | 1, LN (distant) | 2, Bone | 3, Liver | 4, Lung | 5, Other Soft Tissue","Note: Check ALL that apply.
+
+Source Hierarchy:
+1. MD note after IMPACT sample.
+2. Last scan prior to IMPACT sample if MD note is non-specific",,,,,"[extent_collection] = ""2""",,,,,,
+extent_bone,sample_data,,radio,Volume of Bone Metastases at Time of Collection,"0, Low-Volume Bone Metastases | 1, High-Volume Bone Metastases | 2, Unknown","Notes: 
+o  Select ""Low Volume"" if patient had < 4 bone lesions at time of sample collection. Select ""High Volume"" if patient had >= 4 bone lesions at time of sample collection. 
+o  Code ""Extensive osseous metastases"" or similar wording as ""high volume."" If no such comment is made, sites of bone metastases are usually described; count them: ""1, 2, 3, many"" (many = high volume). Do not count sites worded as ""likely inflammatory.""
+o  Select ""Unknown"" if patient appears to have bone metastases but unable to judge.
+
+Source Hierarchy:
+1. Bone scan report prior to IMPACT sampling. 
+2. CT or MRI before IMPACT sampling.
+3. Bone scan report within 3 months after IMPACT sampling.
+4. GU Oncology note after IMPACT testing.",,,,,"[sites_of_disease(2)] = ""1""",,RH,,,,
+sample_on_adt,sample_data,,radio,Continuous ADT,"0, No | 1, Yes | 2, Unknown","Note:  Select ""Yes"" if patient had been on ADT (GnRH or LHRH analog) for at least 3 months prior to sampling.   
+
+Source Hierarchy: 
+1. GU Oncology note prior to sampling. 
+2. GU Oncology or Urology note within the three months prior to sampling. 
+3. Initial Consultation note if sampling performed before care at MSK started (e.g., initial prostatectomy).",,,,,,,,,,,
+freeze_date,freeze_data,,text,Freeze Date,,DO NOT ENTER ANY INFORMATION IN THIS FORM THAT OCCURED AFTER THIS DATE,,,,,,,,,,,
+adt_start_date,freeze_data,,text,Continuous ADT Start Date,,"Note: Enter start date of continuous ADT (GnRH or LHRH analog) given for rising PSA or metastatic disease. Continuous ADT is defined as no more than 6 months between treatments. Do not enter dates for ADT given with surgery or RT. Enter ""N/A"" if patient has not yet started ADT per the above description.
+
+Answer Format: MM/DD/YYYY. Enter the date to the greatest level of granularity available. Use format ""MM/YYYY"" for month/year only and format ""YYYY"" for year only.
+
+Source Hierarchy: Oncology history of the latest GU Oncology note. (Do not look beyond this.)",,,,,,,,,,,
+is_crpc,freeze_data,,dropdown,Castration Resistant,"0, No | 1, Yes | 2, Unknown | 3, N/A-Pure small cell/neuroendocrine at diagnosis | 4, N/A-Pure Other Histology at Diagnosis","Notes:
+o  Definition of CRPC includes biochemical progression (rising PSA value above 2 ng/mL on ADT) or radiographic progression while on ADT.
+o  If unable to determine, enter ""Unknown"".
+
+Source Hierarchy:
+1. Oncology History. If selecting ""Yes"" but it does not seem like an accurate status, FLAG FOR RESOLUTION.
+2. Laboratory results: Follow definition above if date is not given in Oncology History
+
+
+",,,,,,,,,,,
+date_crpc,freeze_data,,text,Castration Resistance Date,,"Answer Format: MM/DD/YYYY. Enter the date to the greatest level of granularity available. Use format ""MM/YYYY"" for month/year only and format ""YYYY"" for year only.
+
+Notes:  
+o If status is CRPC in initial consult note, look through history for date of progression while on ADT 
+o  If Castration Resistant = Yes, this is the date on which CRPC was detected (definition and source as above).  ",,,,,[is_crpc] = 1,,,,,,
+is_metastatic,freeze_data,,dropdown,Metastatic,"0, No | 1, Yes | 2, Unknown","Notes: 
+o  Enter whether patient had at least one non-regional metastasis detected at any time during follow up.
+o  If unable to decide, FLAG FOR RESOLUTION.
+
+Source Hierarchy:
+1. Last GU Oncology note
+2. Last Radiology report.
+3. GU Oncology note after the most recent re-staging test (CT and/or bone scan)",,,,,,,RH,,,,
+metastasis_date,freeze_data,,text,Date of Metastasis,,"Answer Format: MM/DD/YYYY. Enter the date to the greatest level of granularity available. Use format ""MM/YYYY"" for month/year only and format ""YYYY"" for year only.
+
+Notes: 
+o  If ""Yes"" to previous field, enter the date on which metastases were FIRST detected. If M1 at diagnosis, enter diagnosis date.
+
+Source Hierarchy: 
+1. Oncology History of Last GU Oncology note. 
+2. Last Radiology reports for CT, bone scan, MRI.
+3. Last Urology or Rad-Onc follow-up note.",,,,,[is_metastatic] = 1,,,,,,
+date_last_visit,freeze_data,,text,Last MD Visit Date,,"Answer Format: MM/DD/YYYY
+
+Notes:
+o Only include GU Prostate or Urology visits.
+o Enter date of last visit with GU Prostate Physician/Advanced Care Provider.",,,,,"[is_crpc] = ""0"" or [is_metastatic] = ""0""",,,,,,
+survival_status,freeze_data,,radio,Survival Status,"0, Alive | 1, Dead",,,,,,,,RH,,,,
+survival_status_date,freeze_data,,text,Date of Death/Last Contact,,"Answer Format: MM/DD/YYYY  
+
+Note: If patient is alive, enter Date of Last Contact. If patient is deceased, enter Date of Death.
+
+Source hierarchy:
+1. Demographic data.
+2. Last entered note of contact.",,,,,,,,,,,
+part_c,freeze_data,,radio,Consented to 12-245 Part C?,"0, No | 1, Yes",,,,,,,,RH,,,,
+tx,treatment_data,,dropdown,Treatment Name,"0, ADT | 1, Anti-Androgen | 2, Ketoconazole | 3, Zytiga | 4, Xtandi | 5, Apalutamide | 6, Docetaxel | 7, Cabazitaxel | 8, Paclitaxel | 9,Carboplatin | 10, Cisplatin | 11, Etoposide | 12, Olaparib | 13, Pembrolizumab | 14, Provenge | 15, Xofigo | 16, Other","Note: Enter all systemic treatments. Only use ""other"" if the therapy is not listed in the dropdown.
+
+Source hierarchy:
+1. Most recent GU Oncology history",,,,,,,,,,,
+tx_other,treatment_data,,text,Treatment Name (Other),,,,,,,"[tx] = ""16""",,,,,,
+tx_start,treatment_data,,text,Treatment Start Date,,"Answer Format: MM/DD/YYYY 
+
+Notes: 
+o Enter dates for all systemic treatments. 
+o Do not record primary treatment or RT here. 
+
+Source hierarchy:
+1. Most recent GU Oncology history",,,,,,,,,,,
+tx_end_date,treatment_data,,text,Treatment End Date/Last Known Treatment Date,,"Answer Format: MM/DD/YYYY. 
+
+Note: 
+o If treatment is ongoing, enter last known treatment date.
+
+Source hierarchy:
+1. Most recent GU Oncology history",,,,,,,,,,,
+tx_ongoing,treatment_data,,radio,Treatment Ongoing,"0, Yes | 1, No",,,,,,,,RH,,,,
+tx_stop_reason,treatment_data,,radio,Reason for Treatment Stop,"0, N/A-Ongoing | 1, N/A - Lost to Follow Up | 2, Disease Progression | 3, Toxicity | 4, Patient Choice | 5, Other (text box) | 6, Unknown","Note: If more than one reason for treatment discontinuation is documented, follow the following hierarchy: 1. Disease Progression, 2. Toxicity, 3. Patient Choice, 4. Other",,,,,"[tx_ongoing] = ""1""",,RH,,,,
+tx_stop_reason_other,treatment_data,,text,Reason for Treatment Stop (Other),,,,,,,"[tx_stop_reason] = ""5""",,,,,,

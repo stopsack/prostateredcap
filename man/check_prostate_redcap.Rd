@@ -52,7 +52,8 @@ information on which records failed which QC step.
 \description{
 Run sequential quality control checks and
 thereby restrict the \code{pts} and \code{smp} datasets
-to cases that pass certain criteria.
+to cases that pass certain criteria. \code{trt} (treatment) data are
+passed along without changes.
 }
 \examples{
 \dontrun{

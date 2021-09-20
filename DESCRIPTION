@@ -1,14 +1,14 @@
 Package: prostateredcap
 Title: Load and check the MSK Prostate REDCap Prostate clinical database
-Version: 0.2.1
+Version: 0.3.0
 Authors@R: 
     person(given = "Konrad",
            family = "Stopsack",
            role = c("aut", "cre"),
            email = "stopsack@mskcc.org",
            comment = c(ORCID = "0000-0002-0722-1311"))
-Description: This package loads, merges, reformats, corrects, labels, and quality controls
-  the MSK Prostate REDCap Prostate clinical database.
+Description: This package loads, merges, reformats, corrects, labels, and 
+  quality controls the Prostate REDCap clinical database.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

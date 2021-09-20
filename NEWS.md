@@ -1,3 +1,10 @@
+# prostateredcap 0.3.0
+
+* Add loading and deidentification of treatment data (`trt`).
+* `deidentify_prostate_redcap()` Allow removal of ID from additional datasets
+  for merging (`ext`).
+
+
 # prostateredcap 0.2.1
 
 * Add introductory vignette and (fake) example dataset.

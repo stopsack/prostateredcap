@@ -28,17 +28,19 @@ Provide as list with vectors of variable names for baseline and freeze
 forms: \code{list(baseline = c("var1", "var2"), freeze = "varX")}.}
 }
 \value{
-List of two labeled tibbles (data frames):
+List of three labeled tibbles (data frames):
 \itemize{
 \item \code{pts}: Patient-level data
 \item \code{smp}: Sample-level data
+\item \code{trt}: Treatment data
 }
 
 Access variables labels in RStudio via \code{\link[utils]{View}}
 or using \code{\link{attr}(., "label")}.
 
 The warning message, \code{Duplicated column names deduplicated}, is
-expected due to the design of the REDCap dataset.
+expected due to the design of the REDCap dataset. Another warning message
+that a factor does not contain all levels is also possible.
 }
 \description{
 Loads, merges, reformats, corrects, and labels
@@ -85,10 +87,14 @@ by definition.
 }
 }
 \examples{
-\dontrun{
+# Get path to toy data provided by the package:
+example_csv_file <- system.file("extdata",
+  "SampleGUPIMPACTDatab_DATA_LABELS_2021-05-26.csv",
+  package = "prostateredcap",
+  mustWork = TRUE)
+
 # Load data:
-pts_smp <- load_prostate_redcap(
-  labeled_csv = "GUPIMPACTDatabaseFre_DATA_LABELS_2020-01-01_0001.csv")
+pts_smp <- load_prostate_redcap(labeled_csv = example_csv_file)
 
 # Access patient-level data:
 pts_smp$pts
@@ -96,8 +102,10 @@ pts_smp$pts
 # Access sample-level data:
 pts_smp$smp
 
+# Access treatment data:
+pts_smp$trt
+
 # Pass 'pts_smp' to check_prostate_redcap() next
-}
 }
 \seealso{
 Overview of analysis-ready data elements:

@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 This data dictionary describes the full set of derived variables to use for analyses after running `load_prostate_redcap()` and `check_prostate_redcap(recommended_only = TRUE)`. Additional variables may be available, especially if disabling `recommended_only`.
 
-For definitions and underlying data collection, see the ~~data dictionary of the REDCap database~~.
+For definitions and underlying data collection, see the [data dictionary of the REDCap database](https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/prostateredcap_datadictionary.csv).
 
 
 ## Patient-level data

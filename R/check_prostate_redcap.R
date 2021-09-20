@@ -85,7 +85,8 @@ qc_criteria_smp <- function() {
 #'
 #' @description Run sequential quality control checks and
 #'   thereby restrict the \code{pts} and \code{smp} datasets
-#'   to cases that pass certain criteria.
+#'   to cases that pass certain criteria. \code{trt} (treatment) data are
+#'   passed along without changes.
 #'
 #' @param data List with elements \code{pts} and \code{smp},
 #'   returned by \code{\link{load_prostate_redcap}}.
@@ -188,5 +189,5 @@ check_prostate_redcap <- function(data,
   }
 
   list(pts = qc_pts_data, smp = qc_smp_data,
-       qc_pts = qc_pts, qc_smp = qc_smp)
+       qc_pts = qc_pts, qc_smp = qc_smp, trt = data$trt, ext = data$ext)
 }

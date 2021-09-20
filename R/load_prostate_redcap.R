@@ -95,28 +95,36 @@ unknowns <- function(x) {
 #'    CRPC did not occur, the sample is from castration-sensitive disease
 #'    by definition.
 #'
-#' @return List of two labeled tibbles (data frames):
+#' @return List of three labeled tibbles (data frames):
 #'
 #' * \code{pts}: Patient-level data
 #'
 #' * \code{smp}: Sample-level data
 #'
+#' * \code{trt}: Treatment data
+#'
 #' Access variables labels in RStudio via \code{\link[utils]{View}}
 #' or using \code{\link{attr}(., "label")}.
 #'
 #' The warning message, \code{Duplicated column names deduplicated}, is
-#' expected due to the design of the REDCap dataset.
+#' expected due to the design of the REDCap dataset. Another warning message
+#' that a factor does not contain all levels is also possible.
 #'
 #' @import dplyr stringr purrr forcats
 #' @export
 #'
 #' @seealso Overview of analysis-ready data elements:
 #'   \url{https://stopsack.github.io/prostateredcap/articles/dataelements.html}
+#'
 #' @examples
-#' \dontrun{
+#' # Get path to toy data provided by the package:
+#' example_csv_file <- system.file("extdata",
+#'   "SampleGUPIMPACTDatab_DATA_LABELS_2021-05-26.csv",
+#'   package = "prostateredcap",
+#'   mustWork = TRUE)
+#'
 #' # Load data:
-#' pts_smp <- load_prostate_redcap(
-#'   labeled_csv = "GUPIMPACTDatabaseFre_DATA_LABELS_2020-01-01_0001.csv")
+#' pts_smp <- load_prostate_redcap(labeled_csv = example_csv_file)
 #'
 #' # Access patient-level data:
 #' pts_smp$pts
@@ -124,8 +132,10 @@ unknowns <- function(x) {
 #' # Access sample-level data:
 #' pts_smp$smp
 #'
+#' # Access treatment data:
+#' pts_smp$trt
+#'
 #' # Pass 'pts_smp' to check_prostate_redcap() next
-#' }
 load_prostate_redcap <- function(labeled_csv,
                                  deidentify = TRUE,
                                  keep_also  = list(baseline = NULL,
@@ -135,15 +145,13 @@ load_prostate_redcap <- function(labeled_csv,
   rcclin <- readr::read_csv(file = labeled_csv,
                             col_types = readr::cols(
                               .default = readr::col_character())) %>%
-    filter(is.na(`Repeat Instrument`) |
-             `Repeat Instrument` != "Treatment Data") %>%
-    select(`Record ID`:`Complete?_2`) %>%
+    select(`Record ID`:`Complete?_3`) %>%
     rename(ptid = `Record ID`)
 
   # Patient-level baseline form
   pts_baseline <- rcclin %>%
     filter(is.na(`Repeat Instrument`)) %>%
-    select(ptid       = ptid,
+    select(ptid,
            complete_pts = `Complete?`,
            dob        = `Birth Date`,
            race       = `Race`,
@@ -154,7 +162,7 @@ load_prostate_redcap <- function(labeled_csv,
            bx_gl_sum  = `Sum Gleason at Diagnosis (Biopsy)`,
            bx_gl_maj  = `Primary Gleason Pattern at Diagnosis (Biopsy)`,
            bx_gl_min  = `Secondary Gleason Pattern at Diagnosis (Biopsy)`,
-           psa_dx      = `PSA at Diagnosis`,
+           psa_dx     = `PSA at Diagnosis`,
            clin_t     = `Clinical T Stage at Diagnosis`,
            clin_n     = `Clinical N Stage at Diagnosis (regional lymph node metastases)`,
            clin_m     = `Clinical M Stage at Diagnosis`,
@@ -170,7 +178,7 @@ load_prostate_redcap <- function(labeled_csv,
   # Patient-level "freeze" (outcome) form
   pts_freeze <- rcclin %>%
     filter(`Repeat Instrument` == "Freeze Data") %>%
-    select(ptid       = ptid,
+    select(ptid,
            freezedate = `Freeze Date`,
            adtstart   = `Continuous ADT Start Date`,
            is_crpc    = `Castration Resistant`,
@@ -459,17 +467,17 @@ load_prostate_redcap <- function(labeled_csv,
           (is_crpc != "No" & crpc_date <= smpdate) ~
           "Metastatic castration-resistant")),
       dzextent_smp = fct_relevel(dzextent_smp,
-                             "Localized",
-                             "Regional nodes",
-                             "Metastatic hormone-sensitive",
-                             "Non-metastatic castration-resistant",
-                             "Metastatic castration-resistant",
-                             "Metastatic, variant histology"),
+                                 "Localized",
+                                 "Regional nodes",
+                                 "Metastatic hormone-sensitive",
+                                 "Non-metastatic castration-resistant",
+                                 "Metastatic castration-resistant",
+                                 "Metastatic, variant histology"),
       primmet_smp = case_when(
         dzextent_smp %in% c("Localized", "Regional nodes") ~ "Primary",
         dzextent_smp %in% c("Metastatic castration-resistant",
-                        "Metastatic hormone-sensitive",
-                        "Metastatic, variant histology") ~ "Metastatic"),
+                            "Metastatic hormone-sensitive",
+                            "Metastatic, variant histology") ~ "Metastatic"),
       age_smp        = age_dx + lubridate::interval(dxdate, smpdate) /
         lubridate::years(1),
       age_seq        = age_dx + lubridate::interval(dxdate, seqdate) /
@@ -510,6 +518,101 @@ load_prostate_redcap <- function(labeled_csv,
     select(-stage, -age_dx, -dxdate, -met_date, -crpc_date,
            -is_crpc, -lastfu, -adtstart)
 
+
+  ####
+  # Treatment data
+
+  # add empty columns if variables missing in data set
+  added_cols <- tibble(
+    `Extent of Disease before starting PARPi`           = NA_character_,
+    `Sites of Disease (choice=Prostate/Prostate Bed)_1` = NA_character_,
+    `Sites of Disease (choice=LN (distant))_1`          = NA_character_,
+    `Sites of Disease (choice=Bone)_1`                  = NA_character_,
+    `Sites of Disease (choice=Liver)_1`                 = NA_character_,
+    `Sites of Disease (choice=Lung)_1`                  = NA_character_,
+    `Sites of Disease (choice=Other Soft Tissue)_1`     = NA_character_,
+    `Volume of Bone Metastases`                         = NA_character_)
+
+  trt <- rcclin %>%
+    filter(`Repeat Instrument` == "Treatment Data") %>%
+    select(ptid, `Repeat Instance`, `Treatment Name`:`Complete?_3`)
+
+  trt <- trt %>%
+    tibble::add_column(added_cols %>%
+                         select(-dplyr::any_of(names(trt)))) %>%
+    transmute(
+      ptid                 = ptid,
+      rx_line              = `Repeat Instance`,
+      rx_name              = factor(unknowns(`Treatment Name`)),
+      rx_name_other        = `Treatment Name (Other)`,
+      rx_name_parpi        = `PARPi Agent Name`,
+      rx_start             = guessdate(`Treatment Start Date`),
+      rx_end               = guessdate(`Treatment End Date/Last Known Treatment Date`),
+      rx_censor            = `Treatment Ongoing`,
+      rx_stop_reason       = factor(unknowns(`Reason for Treatment Stop`)),
+      rx_stop_reason_other = `Reason for Treatment Stop (Other)`,
+      rx_dzextent          = factor(unknowns(`Extent of Disease before starting PARPi`)),
+      rx_ext_pros  = factor(if_else(
+        `Sites of Disease (choice=Prostate/Prostate Bed)_1` == "Checked",
+        TRUE, FALSE)),
+      rx_ext_lndis = factor(if_else(
+        `Sites of Disease (choice=LN (distant))_1` ==
+          "Checked", TRUE, FALSE)),
+      rx_ext_bone  = factor(if_else(
+        `Sites of Disease (choice=Bone)_1` == "Checked",
+        TRUE, FALSE)),
+      rx_ext_vis   = factor(if_else(
+        `Sites of Disease (choice=Liver)_1` == "Checked" |
+          `Sites of Disease (choice=Lung)_1` == "Checked" |
+          `Sites of Disease (choice=Other Soft Tissue)_1` ==
+          "Checked",
+        TRUE, FALSE)),
+      rx_ext_liver   = factor(if_else(
+        `Sites of Disease (choice=Liver)_1` == "Checked",
+        TRUE, FALSE)),
+      rx_ext_lung   = factor(if_else(
+        `Sites of Disease (choice=Lung)_1` == "Checked",
+        TRUE, FALSE)),
+      rx_ext_other   = factor(if_else(
+        `Sites of Disease (choice=Other Soft Tissue)_1` == "Checked",
+        TRUE, FALSE)),
+      rx_bonevol   = factor(unknowns(`Volume of Bone Metastases`))) %>%
+    # Derive variables for which data from "pts" are needed:
+    left_join(pts %>% select(ptid, age_dx, dxdate, met_date,
+                             crpc_date, is_crpc, lastfu, adtstart),
+              by = "ptid") %>%
+    mutate(
+      dx_rx_start_mos = lubridate::interval(dxdate,   rx_start) / months(1),
+      dx_rx_end_mos   = lubridate::interval(dxdate,   rx_end)   / months(1),
+      rx_wks          = lubridate::interval(rx_start, rx_end)   / lubridate::weeks(1),
+      rx_dzextent = factor(case_when(
+        rx_dzextent %in% c("Localized", "Regional nodes") &
+          is_crpc == "Yes" & crpc_date <= rx_start ~
+          "Non-metastatic castration-resistant",
+        rx_dzextent %in% c("Localized", "Regional nodes") &
+          (is_crpc != "Yes" | crpc_date > rx_start) ~
+          as.character(rx_dzextent),
+        rx_dzextent == "Metastatic" &
+          grepl("N/A-", is_crpc, fixed = TRUE) ~
+          "Metastatic, variant histology",
+        rx_dzextent == "Metastatic" &
+          (is_crpc == "No" | (is_crpc == "Yes" & crpc_date > rx_start)) ~
+          "Metastatic hormone-sensitive",
+        rx_dzextent == "Metastatic" &
+          (is_crpc != "No" & crpc_date <= rx_start) ~
+          "Metastatic castration-resistant")),
+      rx_dzextent = fct_relevel(rx_dzextent,
+                                "Localized",
+                                "Regional nodes",
+                                "Metastatic hormone-sensitive",
+                                "Non-metastatic castration-resistant",
+                                "Metastatic castration-resistant",
+                                "Metastatic, variant histology")) %>%
+    # remove variables from "pts":
+    select(-age_dx, -dxdate, -met_date, -crpc_date,
+           -is_crpc, -lastfu, -adtstart)
+
+
   pts <- pts %>% labelled::set_variable_labels(
     ptid           = "Patient ID",
     complete_pts   = "Record completely entered",
@@ -525,9 +628,9 @@ load_prostate_redcap <- function(labeled_csv,
     bx_gl34        = "Gleason grade",
     bx_gl_maj      = "Gleason grade, major pattern",
     bx_gl_min      = "Gleason grade, minor pattern",
-    psa_dx          = "PSA at diagnosis (ng/ml)",
-    psa_dxcat       = "PSA at diagnosis (ng/ml)",
-    lnpsa_dx          = "PSA at diagnosis (ng/ml, log)",
+    psa_dx         = "PSA at diagnosis (ng/ml)",
+    psa_dxcat      = "PSA at diagnosis (ng/ml)",
+    lnpsa_dx       = "PSA at diagnosis (ng/ml, log)",
     clin_t         = "Stage (T)",
     clin_n         = "Stage (N)",
     clin_m         = "Stage (M)",
@@ -607,10 +710,32 @@ load_prostate_redcap <- function(labeled_csv,
     seq_os_mos   = "Overall survival from sequencing (months)",
     dzvol        = "Volume of disease",
     denovom_smp  = "Timing of metastases",
-    denovom_seq  = "Timing of metastases",
-    )
+    denovom_seq  = "Timing of metastases")
 
-  pts_smp <- lst(pts, smp)
+  trt <- trt %>% labelled::set_variable_labels(
+    rx_line              = "Line of therapy",
+    rx_name              = "Treatment Name",
+    rx_name_other        = "Treatment Name (Other)",
+    rx_name_parpi        = "PARPi Agent Name",
+    rx_start             = "Treatment Start Date",
+    rx_end               = "Treatment End Date/Last Known Treatment Date",
+    dx_rx_start_mos      = "Time from diagnosis to treatment start (months)",
+    dx_rx_end_mos        = "Time from diagnosis to treatment end (months)",
+    rx_wks               = "Duration of treatment (weeks)",
+    rx_censor            = "Treatment Ongoing",
+    rx_stop_reason       = "Reason for Treatment Stop",
+    rx_stop_reason_other = "Reason for Treatment Stop (Other)",
+    rx_dzextent          = "Extent of Disease before starting PARPi",
+    rx_ext_pros          = "Sites of Disease at PARPi start: Prostate",
+    rx_ext_lndis         = "Sites of Disease at PARPi start: Distant lymph node",
+    rx_ext_bone          = "Sites of Disease at PARPi start: Bone",
+    rx_ext_vis           = "Sites of Disease at PARPi start: Visceral/soft tissue",
+    rx_ext_liver         = "Sites of Disease at PARPi start: Liver",
+    rx_ext_lung          = "Sites of Disease at PARPi start: Lung",
+    rx_ext_other         = "Sites of Disease at PARPi start: Other soft tissue",
+    rx_bonevol           = "Volume of Bone Metastases at PARPi start")
+
+  pts_smp <- lst(pts, smp, trt)
 
   if(deidentify == TRUE)  # Default: deidentify the dataset
     pts_smp <- deidentify_prostate_redcap(pts_smp)
