@@ -31,7 +31,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prostateredcap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -118,7 +118,9 @@
 
 <span class="fu">readr</span><span class="fu">::</span><span class="fu"><a href="https://readr.tidyverse.org/reference/read_delim.html">read_csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="va">raw_data</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rdrr.io/r/base/print.html">print</a></span><span class="op">(</span>n_extra <span class="op">=</span> <span class="fl">0</span><span class="op">)</span>  <span class="co"># do not print all other columns</span>
-<span class="co">#&gt; # A tibble: 28 x 72</span>
+<span class="co">#&gt; Warning: The `n_extra` argument of `print()` is deprecated as of pillar 1.6.2.</span>
+<span class="co">#&gt; Please use the `max_extra_cols` argument instead.</span>
+<span class="co">#&gt; # A tibble: 28 × 72</span>
 <span class="co">#&gt;    `Record ID` `Repeat Instrume… `Repeat Instanc… `Birth Date` Race   Ethnicity </span>
 <span class="co">#&gt;          &lt;dbl&gt; &lt;chr&gt;                        &lt;dbl&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;     </span>
 <span class="co">#&gt;  1           1 &lt;NA&gt;                            NA 02/04/1956   White  NOT Hispa…</span>
@@ -147,7 +149,10 @@
 <span class="co">#&gt; Warning: Unknown levels in `f`: Liver</span>
 <span class="co">#&gt; Warning: Unknown levels in `f`: Regional nodes, Metastatic, variant histology</span>
 <span class="co">#&gt; Warning: Unknown levels in `f`: Non-metastatic castration-resistant, Metastatic,</span>
-<span class="co">#&gt; variant histology</span></code></pre></div>
+<span class="co">#&gt; variant histology</span>
+<span class="co">#&gt; Warning: Unknown levels in `f`: Localized, Regional nodes, Metastatic hormone-</span>
+<span class="co">#&gt; sensitive, Non-metastatic castration-resistant, Metastatic castration-resistant,</span>
+<span class="co">#&gt; Metastatic, variant histology</span></code></pre></div>
 <p>Warnings that the example data, which has data on 8 patients, does not contain all tumor/stage combinations are expected.</p>
 <p><code><a href="../reference/load_prostate_redcap.html">load_prostate_redcap()</a></code> has returned a list with two separate data elements:</p>
 <ul>
@@ -159,7 +164,7 @@
 <p>The data in <code>pts_smp</code> is preprocessed. For example, rather than containing data on date of birth and date of diagnosis, the <code>pts</code> dataset contains age at diagnosis (<code>age_dx</code>, in years).</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pts_smp</span><span class="op">$</span><span class="va">pts</span>
-<span class="co">#&gt; # A tibble: 8 x 55</span>
+<span class="co">#&gt; # A tibble: 8 × 55</span>
 <span class="co">#&gt;    ptid complete_pts age_dx race      race4    race3 ethnicity   smoking smoke01</span>
 <span class="co">#&gt;   &lt;int&gt; &lt;chr&gt;         &lt;dbl&gt; &lt;fct&gt;     &lt;fct&gt;    &lt;fct&gt; &lt;fct&gt;       &lt;fct&gt;     &lt;dbl&gt;</span>
 <span class="co">#&gt; 1     1 Complete       43.4 White     White    White NOT Hispan… Never         0</span>
@@ -176,15 +181,9 @@
 <span class="co">#&gt; #   stage_detailed &lt;fct&gt;, stage &lt;fct&gt;, clin_tstage &lt;fct&gt;, clin_nstage &lt;fct&gt;,</span>
 <span class="co">#&gt; #   mstage &lt;fct&gt;, rxprim &lt;fct&gt;, rxprim_oth &lt;chr&gt;, rxprim_rp &lt;lgl&gt;,</span>
 <span class="co">#&gt; #   rxprim_adt &lt;lgl&gt;, rxprim_chemo &lt;lgl&gt;, rxprim_xrt &lt;lgl&gt;, rxprim_other &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   rp_gl_sum &lt;dbl&gt;, rp_gl34 &lt;fct&gt;, rp_gl_maj &lt;dbl&gt;, rp_gl_min &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   path_t &lt;fct&gt;, path_n &lt;fct&gt;, is_crpc &lt;fct&gt;, crpc_event &lt;dbl&gt;, is_met &lt;fct&gt;,</span>
-<span class="co">#&gt; #   met_event &lt;dbl&gt;, is_dead &lt;fct&gt;, death_event &lt;dbl&gt;, dx_bx_mos &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   dx_adt_mos &lt;dbl&gt;, adt_crpc_mos &lt;dbl&gt;, dx_crpc_mos &lt;dbl&gt;, dx_met_mos &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   dx_os_mos &lt;dbl&gt;, adt_os_mos &lt;dbl&gt;, crpc_os_mos &lt;dbl&gt;, met_date_na &lt;lgl&gt;,</span>
-<span class="co">#&gt; #   crpc_date_na &lt;lgl&gt;, lastvisit_na &lt;lgl&gt;</span>
-
+<span class="co">#&gt; #   rp_gl_sum &lt;dbl&gt;, rp_gl34 &lt;fct&gt;, rp_gl_maj &lt;dbl&gt;, rp_gl_min &lt;dbl&gt;, …</span>
 <span class="va">pts_smp</span><span class="op">$</span><span class="va">smp</span>
-<span class="co">#&gt; # A tibble: 12 x 39</span>
+<span class="co">#&gt; # A tibble: 12 × 39</span>
 <span class="co">#&gt;     ptid complete_smp dmpid  hist_smp   hist_cmt dzextent_smp dzextent2 ext_pros</span>
 <span class="co">#&gt;    &lt;int&gt; &lt;chr&gt;        &lt;chr&gt;  &lt;fct&gt;      &lt;chr&gt;    &lt;fct&gt;        &lt;fct&gt;     &lt;fct&gt;   </span>
 <span class="co">#&gt;  1     1 Complete     P-123… Adenocarc… &lt;NA&gt;     Metastatic … Metastat… FALSE   </span>
@@ -205,8 +204,7 @@
 <span class="co">#&gt; #   pur_rev &lt;fct&gt;, pur_remov &lt;fct&gt;, is_met_for_qc &lt;fct&gt;, dzextent_seq &lt;fct&gt;,</span>
 <span class="co">#&gt; #   primmet_smp &lt;chr&gt;, age_smp &lt;dbl&gt;, age_seq &lt;dbl&gt;, dx_smp_mos &lt;dbl&gt;,</span>
 <span class="co">#&gt; #   adt_smp_mos &lt;dbl&gt;, dx_seq_mos &lt;dbl&gt;, adt_seq_mos &lt;dbl&gt;, smp_met_mos &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   smp_os_mos &lt;dbl&gt;, seq_met_mos &lt;dbl&gt;, seq_crpc_mos &lt;dbl&gt;, seq_os_mos &lt;dbl&gt;,</span>
-<span class="co">#&gt; #   dzvol &lt;fct&gt;, denovom_smp &lt;fct&gt;, denovom_seq &lt;fct&gt;, stage_for_qc &lt;fct&gt;</span></code></pre></div>
+<span class="co">#&gt; #   smp_os_mos &lt;dbl&gt;, seq_met_mos &lt;dbl&gt;, seq_crpc_mos &lt;dbl&gt;, …</span></code></pre></div>
 <p>By default, the argument <code>deidentify = TRUE</code> is set in <code><a href="../reference/load_prostate_redcap.html">load_prostate_redcap()</a></code>. Thus, any identifiers except the sample IDs, which are needed to merge in molecular data and are shared on cBioPortal, have been removed from the returned datasets.</p>
 </div>
 <div id="performing-quality-control" class="section level2">
@@ -225,16 +223,16 @@
   <span class="fu"><a href="../reference/check_prostate_redcap.html">check_prostate_redcap</a></span><span class="op">(</span>recommended_only <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span>
 
 <span class="va">pts_smp_qcd</span><span class="op">$</span><span class="va">qc_pts</span>
-<span class="co">#&gt; # A tibble: 7 x 6</span>
-<span class="co">#&gt;   label                         index included            n  diff excluded      </span>
-<span class="co">#&gt;   &lt;chr&gt;                         &lt;int&gt; &lt;list&gt;          &lt;int&gt; &lt;int&gt; &lt;list&gt;        </span>
-<span class="co">#&gt; 1 All patients                      1 &lt;tibble [8 × 5…     8    NA &lt;NULL&gt;        </span>
-<span class="co">#&gt; 2 Incomplete record                 2 &lt;tibble [8 × 5…     8     0 &lt;tibble [0 × …</span>
-<span class="co">#&gt; 3 Missing date of birth or dia…     3 &lt;tibble [7 × 5…     7     1 &lt;tibble [1 × …</span>
-<span class="co">#&gt; 4 Metastatic/CRPC but no assoc…     4 &lt;tibble [7 × 5…     7     0 &lt;tibble [0 × …</span>
-<span class="co">#&gt; 5 No lastvisit+met+CRPC date        5 &lt;tibble [7 × 5…     7     0 &lt;tibble [0 × …</span>
-<span class="co">#&gt; 6 Metastases before diagnosis       6 &lt;tibble [7 × 5…     7     0 &lt;tibble [0 × …</span>
-<span class="co">#&gt; 7 Missing stage                     7 &lt;tibble [7 × 5…     7     0 &lt;tibble [0 × …</span></code></pre></div>
+<span class="co">#&gt; # A tibble: 7 × 6</span>
+<span class="co">#&gt;   label                                  index included       n  diff excluded  </span>
+<span class="co">#&gt;   &lt;chr&gt;                                  &lt;int&gt; &lt;list&gt;     &lt;int&gt; &lt;int&gt; &lt;list&gt;    </span>
+<span class="co">#&gt; 1 All patients                               1 &lt;tibble […     8    NA &lt;NULL&gt;    </span>
+<span class="co">#&gt; 2 Incomplete record                          2 &lt;tibble […     8     0 &lt;tibble […</span>
+<span class="co">#&gt; 3 Missing date of birth or diagnosis         3 &lt;tibble […     7     1 &lt;tibble […</span>
+<span class="co">#&gt; 4 Metastatic/CRPC but no associated date     4 &lt;tibble […     7     0 &lt;tibble […</span>
+<span class="co">#&gt; 5 No lastvisit+met+CRPC date                 5 &lt;tibble […     7     0 &lt;tibble […</span>
+<span class="co">#&gt; 6 Metastases before diagnosis                6 &lt;tibble […     7     0 &lt;tibble […</span>
+<span class="co">#&gt; 7 Missing stage                              7 &lt;tibble […     7     0 &lt;tibble […</span></code></pre></div>
 <ul>
 <li>Accessing <code>pts_smp_qcd$qc_pts</code> shows that 1 record failed on criterion 3 that filtered for records with missing data of birth or missing date of diagnosis. This record is excluded from the final “quality-controlled” return dataset, <code>pts_smp_qcd$pts</code>. Instead of 8 records before quality control, this dataset only includes records on 7 patients.</li>
 <li>For the sample dataset <code>smp</code>, QC results are accessible as <code>pts_smp_qcd$qc_smp</code> and the final version via <code>pts_smp_qcd$smp</code>. The first step for sample-level data (with <code>index == 2</code>) is to check whether corresponding patient-level passed quality control.</li>

@@ -12,8 +12,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Load and check the MSK Prostate REDCap Prostate clinical database">
-<meta property="og:description" content="This package loads, merges, reformats, corrects, labels, and quality controls
-  the MSK Prostate REDCap Prostate clinical database.">
+<meta property="og:description" content="This package loads, merges, reformats, corrects, labels, and 
+  quality controls the Prostate REDCap clinical database.">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -32,7 +32,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prostateredcap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.2.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
       </span>
     </div>
 
@@ -94,7 +94,7 @@
 <h2 class="hasAnchor">
 <a href="#modules-for-reproducible-clinical-research-on-prostate-cancer" class="anchor"></a>Modules for reproducible clinical research on prostate cancer</h2>
 <ol>
-<li><p><strong>Data dictionary for REDCap:</strong> Definitions for key data elements in clinical-genomic prostate cancer research. The field definitions can be <del>downloaded as a template</del> that serves for creating a <a href="https://projectredcap.org/about/faq/">REDCap database</a> for data input.</p></li>
+<li><p><strong>Data dictionary for REDCap:</strong> Definitions for key data elements in clinical-genomic prostate cancer research. The field definitions can be <a href="https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/prostateredcap_datadictionary.csv">downloaded as a template</a> that serves for creating a <a href="https://projectredcap.org/about/faq/">REDCap database</a> for data input.</p></li>
 <li><p><strong>Assessment of reproducibility:</strong> Empirical assessment of the validity of key data fields for reproducibility in the specific clinical setting (as described in Keegan <em>et al.</em>).</p></li>
 <li><p><strong>prostateredcap R package:</strong> Load and reshape the raw data from REDCap, perform automated quality control checks, and deidentify, using an R package available via Github. The resulting sharable dataset is ready for statistical/bioinformatic analyses.</p></li>
 </ol>
@@ -107,14 +107,14 @@
 <p><strong>Design and implement the REDCap database</strong> – see Keegan <em>et al.</em></p>
 <ul>
 <li>Review rationale, create data definitions, assemble team.</li>
-<li>Create a REDCap database using the <del>database CSV template</del> and define access rights.</li>
+<li>Create a REDCap database using the <a href="https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/prostateredcap_datadictionary.csv">database template</a> and define access rights.</li>
 <li>Pilot annotations, review pilot, and expand data extraction into REDCap.</li>
 </ul>
 </li>
 <li>
 <p><strong>Assessment of reproducibility</strong> – see Keegan <em>et al.</em></p>
 <ul>
-<li>Conducting a formal quality control for reproducibility <del>as described for the MSK implementation</del> is recommended.</li>
+<li>Conducting a formal quality control study as described for implementation at Memorial Sloan Kettering Cancer Center is recommended.</li>
 </ul>
 </li>
 <li>
@@ -141,12 +141,12 @@
 </li>
 </ol>
 <ul>
-<li>Use the datasets for statistical and bioinformatic analyses: <code>datasets$pts</code> is the set of patient-level data; <code>datasets$smp</code> is the set of sample-level data. See <a href="articles/dataelements.html">data dictionary of elements recommended for analyses</a>.</li>
+<li>Use the datasets for statistical and bioinformatic analyses: <code>datasets$pts</code> is the set of patient-level data; <code>datasets$smp</code> is the set of sample-level data; <code>datasets$trt</code> is the set of treatment data per line of treatment. See <a href="articles/dataelements.html">data dictionary of elements recommended for analyses</a>.</li>
 </ul>
 <div id="references" class="section level3">
 <h3 class="hasAnchor">
 <a href="#references" class="anchor"></a>References</h3>
-<p>Keegan NM <em>et al.</em>, Clinical Annotations for Prostate Cancer Research: Defining Data Elements, Creating a Reproducible Analytical Pipeline, and Assessing Data Quality. (Preprint, 2021)</p>
+<p>Keegan NM, Vasselman SE, Barnett ES, Nweji B, Carbone EA, Blum A, Morris MJ, Rathkopf DE, Slovin SF, Danila DC, Autio KA, Kantoff PW, Abida W,* Stopsack KH.* (* equal contributions) Clinical Annotations for Prostate Cancer Research: Defining Data Elements, Creating a Reproducible Analytical Pipeline, and Assessing Data Quality. Preprint, 2021.</p>
 </div>
 </div>
 </div>
