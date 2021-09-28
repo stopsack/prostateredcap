@@ -1,0 +1,24 @@
+citHeader("To cite prostateredcap in publications use:")
+
+citEntry(
+  entry    = "Article",
+  title    = "Clinical Annotations for Prostate Cancer Research: Defining Data Elements, Creating a Reproducible Analytical Pipeline, and Assessing Data Quality",
+  author   = c(person("Niamh M.", "Keegan"),
+               person("Samantha E.", "Vasselman"),
+               person("Ethan S.", "Barnett"),
+               person("Barbara", "Nweji"),
+               person("Emily A.", "Carbone"),
+               person("Alexander", "Blum"),
+               person("Michael J.", "Morris"),
+               person("Dana E.", "Rathkopf"),
+               person("Susan F.", "Slovin"),
+               person("Daniel C.", "Danila"),
+               person("Karen A.", "Autio"),
+               person("Philip W.", "Kantoff"),
+               person("Wassim", "Abida"),
+               person("Konrad H.", "Stopsack")),
+  journal  = "medRxiv",
+  year     = 2021,
+  doi      = "10.1101/2021.09.20.21263842",
+  url      = "https://stopsack.github.io/prostateredcap",
+  textVersion = "Keegan NM, Vasselman SE, Barnett ES, Nweji B, Carbone EA, Blum A, Morris MJ, Rathkopf DE, Slovin SF, Danila DC, Autio KA, Kantoff PW, Abida W, Stopsack KH. Clinical Annotations for Prostate Cancer Research: Defining Data Elements, Creating a Reproducible Analytical Pipeline, and Assessing Data Quality. medRxiv 2021. https://doi.org/10.1101/2021.09.20.21263842")
