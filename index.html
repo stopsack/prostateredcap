@@ -20,6 +20,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -32,18 +34,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">prostateredcap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="articles/prostateredcap.html">Get started</a>
 </li>
@@ -68,7 +64,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/stopsack/prostateredcap/">
+  <a href="https://github.com/stopsack/prostateredcap/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -85,29 +81,29 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="prostateredcap-reproducible-clinical-genomic-research-on-prostate-cancer" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#prostateredcap-reproducible-clinical-genomic-research-on-prostate-cancer" class="anchor"></a>prostateredcap: Reproducible clinical-genomic research on prostate cancer</h1></div>
+<div class="section level1">
+<div class="page-header"><h1 id="prostateredcap-reproducible-clinical-genomic-research-on-prostate-cancer">prostateredcap: Reproducible clinical-genomic research on prostate cancer<a class="anchor" aria-label="anchor" href="#prostateredcap-reproducible-clinical-genomic-research-on-prostate-cancer"></a>
+</h1></div>
 <!-- badges: start -->
 <!-- badges: end -->
-<div id="modules-for-reproducible-clinical-research-on-prostate-cancer" class="section level2">
-<h2 class="hasAnchor">
-<a href="#modules-for-reproducible-clinical-research-on-prostate-cancer" class="anchor"></a>Modules for reproducible clinical research on prostate cancer</h2>
-<ol>
-<li><p><strong>Data dictionary for REDCap:</strong> Definitions for key data elements in clinical-genomic prostate cancer research. The field definitions can be <a href="https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/prostateredcap_datadictionary.csv">downloaded as a template</a> that serves for creating a <a href="https://projectredcap.org/about/faq/">REDCap database</a> for data input.</p></li>
+<div class="section level2">
+<h2 id="modules-for-reproducible-clinical-research-on-prostate-cancer">Modules for reproducible clinical research on prostate cancer<a class="anchor" aria-label="anchor" href="#modules-for-reproducible-clinical-research-on-prostate-cancer"></a>
+</h2>
+<ol style="list-style-type: decimal">
+<li><p><strong>Data dictionary for REDCap:</strong> Definitions for key data elements in clinical-genomic prostate cancer research. The field definitions can be <a href="https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/prostateredcap_datadictionary.csv" class="external-link">downloaded as a template</a> that serves for creating a <a href="https://projectredcap.org/about/faq/" class="external-link">REDCap database</a> for data input.</p></li>
 <li><p><strong>Assessment of reproducibility:</strong> Empirical assessment of the validity of key data fields for reproducibility in the specific clinical setting (as described in Keegan <em>et al.</em>).</p></li>
 <li><p><strong>prostateredcap R package:</strong> Load and reshape the raw data from REDCap, perform automated quality control checks, and deidentify, using an R package available via Github. The resulting sharable dataset is ready for statistical/bioinformatic analyses.</p></li>
 </ol>
 </div>
-<div id="workflow" class="section level2">
-<h2 class="hasAnchor">
-<a href="#workflow" class="anchor"></a>Workflow</h2>
-<ol>
+<div class="section level2">
+<h2 id="workflow">Workflow<a class="anchor" aria-label="anchor" href="#workflow"></a>
+</h2>
+<ol style="list-style-type: decimal">
 <li>
 <p><strong>Design and implement the REDCap database</strong> – see Keegan <em>et al.</em></p>
 <ul>
 <li>Review rationale, create data definitions, assemble team.</li>
-<li>Create a REDCap database using the <a href="https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/prostateredcap_datadictionary.csv">database template</a> and define access rights.</li>
+<li>Create a REDCap database using the <a href="https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/prostateredcap_datadictionary.csv" class="external-link">database template</a> and define access rights.</li>
 <li>Pilot annotations, review pilot, and expand data extraction into REDCap.</li>
 </ul>
 </li>
@@ -120,12 +116,12 @@
 <li>
 <p><strong>Data processing for analyses using the prostateredcap package</strong> – described in detail in the <a href="articles/prostateredcap.html">Get Started</a> vignette.</p>
 <ul>
-<li><p>Export REDCap dataset in “Labeled CSV” format. (Because data collection involves protected health information, raw datasets cannot be shared. To test the process without having an actual dataset at hand yet, the <a href="articles/prostateredcap.html">Get Started</a> vignette uses an <a href="https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/SampleGUPIMPACTDatab_DATA_LABELS_2021-05-26.csv">example dataset</a>.)</p></li>
-<li><p>In R, <a href="articles/prostateredcap.html#install-the-prostateredcap-package-1">install the prostateredcap package</a> using <code><a href="https://remotes.r-lib.org/reference/install_github.html">remotes::install_github("stopsack/prostateredcap")</a></code>.</p></li>
+<li><p>Export REDCap dataset in “Labeled CSV” format. (Because data collection involves protected health information, raw datasets cannot be shared. To test the process without having an actual dataset at hand yet, the <a href="articles/prostateredcap.html">Get Started</a> vignette uses an <a href="https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/SampleGUPIMPACTDatab_DATA_LABELS_2021-05-26.csv" class="external-link">example dataset</a>.)</p></li>
+<li><p>In R, <a href="articles/prostateredcap.html#install-the-prostateredcap-package-1">install the prostateredcap package</a> using <code>remotes::install_github("stopsack/prostateredcap")</code>.</p></li>
 <li>
 <p>Import the labelled CSV exported from REDCap using <code><a href="reference/load_prostate_redcap.html">load_prostate_redcap()</a></code>, which loads, merges, reformats, corrects, and labels the dataset (see <a href="reference/load_prostate_redcap.html#details">Details</a>). By default, this function will also pass the dataset through <code><a href="reference/deidentify_prostate_redcap.html">deidentify_prostate_redcap()</a></code> to remove protected health information.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://stopsack.github.io/prostateredcap">prostateredcap</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://stopsack.github.io/prostateredcap">prostateredcap</a></span><span class="op">)</span>
 <span class="va">datasets</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/load_prostate_redcap.html">load_prostate_redcap</a></span><span class="op">(</span>labeled_csv <span class="op">=</span> <span class="st">"file_from_redcap.csv"</span><span class="op">)</span></code></pre></div>
 </li>
 <li>
@@ -143,10 +139,10 @@
 <ul>
 <li>Use the datasets for statistical and bioinformatic analyses: <code>datasets$pts</code> is the set of patient-level data; <code>datasets$smp</code> is the set of sample-level data; <code>datasets$trt</code> is the set of treatment data per line of treatment. See <a href="articles/dataelements.html">data dictionary of elements recommended for analyses</a>.</li>
 </ul>
-<div id="references" class="section level3">
-<h3 class="hasAnchor">
-<a href="#references" class="anchor"></a>References</h3>
-<p>Keegan NM, Vasselman SE, Barnett ES, Nweji B, Carbone EA, Blum A, Morris MJ, Rathkopf DE, Slovin SF, Danila DC, Autio KA, Kantoff PW, Abida W,* Stopsack KH.* (* equal contributions) Clinical Annotations for Prostate Cancer Research: Defining Data Elements, Creating a Reproducible Analytical Pipeline, and Assessing Data Quality. medRxiv 2021. doi: <a href="https://doi.org/10.1101/2021.09.20.21263842">10.1101/2021.09.20.21263842</a>.</p>
+<div class="section level3">
+<h3 id="references">References<a class="anchor" aria-label="anchor" href="#references"></a>
+</h3>
+<p>Keegan NM, Vasselman SE, Barnett ES, Nweji B, Carbone EA, Blum A, Morris MJ, Rathkopf DE, Slovin SF, Danila DC, Autio KA, Kantoff PW, Abida W,* Stopsack KH.* (* equal contributions) Clinical Annotations for Prostate Cancer Research: Defining Data Elements, Creating a Reproducible Analytical Pipeline, and Assessing Data Quality. medRxiv 2021. doi: <a href="https://doi.org/10.1101/2021.09.20.21263842" class="external-link">10.1101/2021.09.20.21263842</a>.</p>
 </div>
 </div>
 </div>
@@ -154,44 +150,50 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Browse source code at <br><a href="https://github.com/stopsack/prostateredcap/">https://​github.com/​stopsack/​prostateredcap/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/stopsack/prostateredcap/issues">https://​github.com/​stopsack/​prostateredcap/​issues</a>
-</li>
+<li><a href="https://github.com/stopsack/prostateredcap/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/stopsack/prostateredcap/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li><a href="LICENSE.html">Full license</a></li>
-<li><small><a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
+<li><small><a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a></small></li>
 </ul>
 </div>
+
+
 <div class="citation">
-<h2>Citation</h2>
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li><a href="authors.html">Citing prostateredcap</a></li>
+<li><a href="authors.html#citation">Citing prostateredcap</a></li>
 </ul>
 </div>
+
 <div class="developers">
-<h2>Developers</h2>
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Konrad Stopsack <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-0722-1311" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li>Konrad Stopsack <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-0722-1311" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
+
+
 
   </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Konrad Stopsack.</p>
+  <p></p>
+<p>Developed by Konrad Stopsack.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -199,6 +201,8 @@
 
   
 
+
+  
 
   </body>
 </html>

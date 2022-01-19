@@ -19,6 +19,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -31,18 +33,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prostateredcap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.3.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../articles/prostateredcap.html">Get started</a>
 </li>
@@ -67,7 +63,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/stopsack/prostateredcap/">
+  <a href="https://github.com/stopsack/prostateredcap/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -88,22 +84,22 @@
       <h1 data-toc-skip>Data elements to use for analyses</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/stopsack/prostateredcap/blob/master/vignettes/dataelements.Rmd"><code>vignettes/dataelements.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/stopsack/prostateredcap/blob/HEAD/vignettes/dataelements.Rmd" class="external-link"><code>vignettes/dataelements.Rmd</code></a></small>
       <div class="hidden name"><code>dataelements.Rmd</code></div>
 
     </div>
 
     
     
-<p>This data dictionary describes the full set of derived variables to use for analyses after running <code><a href="../reference/load_prostate_redcap.html">load_prostate_redcap()</a></code> and <code><a href="../reference/check_prostate_redcap.html">check_prostate_redcap(recommended_only = TRUE)</a></code>. Additional variables may be available, especially if disabling <code>recommended_only</code>.</p>
-<p>For definitions and underlying data collection, see the <a href="https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/prostateredcap_datadictionary.csv">data dictionary of the REDCap database</a>.</p>
-<div id="patient-level-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#patient-level-data" class="anchor"></a>Patient-level data</h2>
+<p>This data dictionary describes the full set of derived variables to use for analyses after running <code><a href="../reference/load_prostate_redcap.html">load_prostate_redcap()</a></code> and <code>check_prostate_redcap(recommended_only = TRUE)</code>. Additional variables may be available, especially if disabling <code>recommended_only</code>.</p>
+<p>For definitions and underlying data collection, see the <a href="https://github.com/stopsack/prostateredcap/blob/main/inst/extdata/prostateredcap_datadictionary.csv" class="external-link">data dictionary of the REDCap database</a>.</p>
+<div class="section level2">
+<h2 id="patient-level-data">Patient-level data<a class="anchor" aria-label="anchor" href="#patient-level-data"></a>
+</h2>
 <p>Available in the <code>datasets$pts</code> dataset.</p>
-<div id="at-diagnosis" class="section level3">
-<h3 class="hasAnchor">
-<a href="#at-diagnosis" class="anchor"></a>At diagnosis</h3>
+<div class="section level3">
+<h3 id="at-diagnosis">At diagnosis<a class="anchor" aria-label="anchor" href="#at-diagnosis"></a>
+</h3>
 <table class="table">
 <colgroup>
 <col width="11%">
@@ -200,9 +196,9 @@
 </table>
 <p><sup>1</sup> A dataset processed through <code><a href="../reference/check_prostate_redcap.html">check_prostate_redcap()</a></code> excludes records with missing values in the key characteristics, age at diagnosis and M stage. Missingness will only occur if QC filters in <code><a href="../reference/check_prostate_redcap.html">check_prostate_redcap()</a></code> were manually disabled.</p>
 </div>
-<div id="primary-treatment" class="section level3">
-<h3 class="hasAnchor">
-<a href="#primary-treatment" class="anchor"></a>Primary treatment</h3>
+<div class="section level3">
+<h3 id="primary-treatment">Primary treatment<a class="anchor" aria-label="anchor" href="#primary-treatment"></a>
+</h3>
 <table class="table">
 <colgroup>
 <col width="11%">
@@ -291,9 +287,9 @@
 </table>
 </div>
 </div>
-<div id="sample-level-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#sample-level-data" class="anchor"></a>Sample-level data</h2>
+<div class="section level2">
+<h2 id="sample-level-data">Sample-level data<a class="anchor" aria-label="anchor" href="#sample-level-data"></a>
+</h2>
 <p>Available in the <code>datasets$smp</code> dataset.</p>
 <table class="table">
 <colgroup>
@@ -460,9 +456,9 @@
 </tbody>
 </table>
 </div>
-<div id="outcomes" class="section level2">
-<h2 class="hasAnchor">
-<a href="#outcomes" class="anchor"></a>Outcomes</h2>
+<div class="section level2">
+<h2 id="outcomes">Outcomes<a class="anchor" aria-label="anchor" href="#outcomes"></a>
+</h2>
 <p>Setup:</p>
 <ul>
 <li>Indicator (event) variables are in <code>datasets$pts</code>, because events can only occur once per person.</li>
@@ -539,11 +535,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Konrad Stopsack.</p>
+  <p></p>
+<p>Developed by Konrad Stopsack.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
@@ -551,6 +549,8 @@
 
   
 
+
+  
 
   </body>
 </html>

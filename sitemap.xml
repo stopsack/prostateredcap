@@ -1,7 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://stopsack.github.io/prostateredcap/404.html</loc>
+  </url>
+  <url>
+    <loc>https://stopsack.github.io/prostateredcap/LICENSE-text.html</loc>
+  </url>
+  <url>
+    <loc>https://stopsack.github.io/prostateredcap/LICENSE.html</loc>
+  </url>
+  <url>
+    <loc>https://stopsack.github.io/prostateredcap/articles/dataelements.html</loc>
+  </url>
+  <url>
+    <loc>https://stopsack.github.io/prostateredcap/articles/index.html</loc>
+  </url>
+  <url>
+    <loc>https://stopsack.github.io/prostateredcap/articles/prostateredcap.html</loc>
+  </url>
+  <url>
+    <loc>https://stopsack.github.io/prostateredcap/authors.html</loc>
+  </url>
+  <url>
     <loc>https://stopsack.github.io/prostateredcap/index.html</loc>
+  </url>
+  <url>
+    <loc>https://stopsack.github.io/prostateredcap/news/index.html</loc>
   </url>
   <url>
     <loc>https://stopsack.github.io/prostateredcap/reference/check_prostate_redcap.html</loc>
@@ -11,6 +35,9 @@
   </url>
   <url>
     <loc>https://stopsack.github.io/prostateredcap/reference/guessdate.html</loc>
+  </url>
+  <url>
+    <loc>https://stopsack.github.io/prostateredcap/reference/index.html</loc>
   </url>
   <url>
     <loc>https://stopsack.github.io/prostateredcap/reference/load_prostate_redcap.html</loc>
@@ -23,11 +50,5 @@
   </url>
   <url>
     <loc>https://stopsack.github.io/prostateredcap/reference/qc_criteria_smp.html</loc>
-  </url>
-  <url>
-    <loc>https://stopsack.github.io/prostateredcap/articles/dataelements.html</loc>
-  </url>
-  <url>
-    <loc>https://stopsack.github.io/prostateredcap/articles/prostateredcap.html</loc>
   </url>
 </urlset>
