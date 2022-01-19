@@ -142,9 +142,11 @@ load_prostate_redcap <- function(labeled_csv,
                                                    sample   = NULL,
                                                    freeze   = NULL)) {
   # Read REDCap file
-  rcclin <- readr::read_csv(file = labeled_csv,
-                            col_types = readr::cols(
-                              .default = readr::col_character())) %>%
+  rcclin <- readr::read_csv(
+    file = labeled_csv,
+    col_types = readr::cols(
+      .default = readr::col_character()),
+    name_repair = ~vctrs::vec_as_names_legacy(., sep = "_")) %>%
     select(`Record ID`:`Complete?_3`) %>%
     rename(ptid = `Record ID`)
 

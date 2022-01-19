@@ -1,3 +1,8 @@
+# prostateredcap 0.3.0-9000
+
+* `load_prostate_redcap()`: Fix name repair issues due to tidyverse changes
+
+
 # prostateredcap 0.3.0
 
 * Add loading and deidentification of treatment data (`trt`).
