@@ -5,8 +5,9 @@
 #' the MSK Prostate REDCap Prostate clinical database.
 #' Run \code{\link{load_prostate_redcap}}, followed by \code{\link{check_prostate_redcap}}.
 #'
-#' @docType package
 #' @name prostateredcap
+#' @keywords internal
+"_PACKAGE"
 #' @examples
 #' \dontrun{
 #' # Load labeled CSV exported from REDCap:
