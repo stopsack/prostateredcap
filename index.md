@@ -52,4 +52,4 @@
 
 ### References
 
-Keegan NM, Vasselman SE, Barnett ES, Nweji B, Carbone EA, Blum A, Morris MJ, Rathkopf DE, Slovin SF, Danila DC, Autio KA, Kantoff PW, Abida W,\* Stopsack KH.\* (\* equal contributions)  Clinical Annotations for Prostate Cancer Research: Defining Data Elements, Creating a Reproducible Analytical Pipeline, and Assessing Data Quality. medRxiv 2021. doi: [10.1101/2021.09.20.21263842](https://doi.org/10.1101/2021.09.20.21263842).
+Keegan NM, Vasselman SE, Barnett ES, Nweji B, Carbone EA, Blum A, Morris MJ, Rathkopf DE, Slovin SF, Danila DC, Autio KA, Scher HI, Kantoff PW, Abida W,\* Stopsack KH.\* Clinical annotations for prostate cancer research: Defining data elements, creating a reproducible analytical pipeline, and assessing data quality. *The Prostate*. 2022. doi: 10.1002/pros.24363. [Article](https://doi.org/10.1002/pros.24363) | [Preprint](https://doi.org/10.1101/2021.09.20.21263842)
