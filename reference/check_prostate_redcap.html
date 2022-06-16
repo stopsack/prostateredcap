@@ -20,7 +20,7 @@ passed along without changes."><!-- mathjax --><script src="https://cdnjs.cloudf
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prostateredcap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@ passed along without changes."><!-- mathjax --><script src="https://cdnjs.cloudf
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -87,14 +87,20 @@ passed along without changes.</p>
     <dl><dt>data</dt>
 <dd><p>List with elements <code>pts</code> and <code>smp</code>,
 returned by <code><a href="load_prostate_redcap.html">load_prostate_redcap</a></code>.</p></dd>
+
+
 <dt>qc_crit_pts</dt>
 <dd><p>Criteria for checking the <code>pts</code> tibble.
 Defaults to the return of the <code><a href="qc_criteria_pts.html">qc_criteria_pts</a></code> function.
 Custom criteria can be supplied instead.</p></dd>
+
+
 <dt>qc_crit_smp</dt>
 <dd><p>Criteria for checking the <code>smp</code> tibble.
 Defaults to the return of the <code><a href="qc_criteria_smp.html">qc_criteria_smp</a></code> function.
 Custom criteria can be supplied instead.</p></dd>
+
+
 <dt>qc_level_pts</dt>
 <dd><p>Level of QC that the return <code>pts</code> tibble
 will be restricted to. By default, all QC steps in <code>qc_crit_pts</code>
@@ -102,16 +108,23 @@ will be applied. A integer index (row) number of
 <code>qc_crit_pts</code> can be provided instead to perform
 less strict exclusions. <code>qc_level_pts = 1</code> will perform
 no exclusions.</p></dd>
+
+
 <dt>qc_level_smp</dt>
 <dd><p>As <code>qc_level_pts</code>, for <code>smp</code>.</p></dd>
+
+
 <dt>recommended_only</dt>
 <dd><p>Return qc'd <code>pts</code> and <code>smp</code>
 restricted to variables that are recommended for use in analyses?
 Defaults to <code>FALSE</code> but is recommended for use.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>List:</p><ul><li><p><code>pts</code>: Patient-level data after QC.</p></li>
+    
+
+<p>List:</p><ul><li><p><code>pts</code>: Patient-level data after QC.</p></li>
 <li><p><code>smp</code>: Sample-level data after QC.</p></li>
 <li><p><code>qc_pts</code>: Tibble of sequential exclusions for <code>pts</code>.</p></li>
 <li><p><code>qc_smp</code>: Tibble of sequential exclusions for <code>smp</code>.
@@ -144,7 +157,7 @@ information on which records failed which QC step.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>

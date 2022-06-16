@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prostateredcap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
       </span>
     </div>
 
@@ -46,7 +46,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -117,7 +117,7 @@
 <span class="co">#&gt; Warning: The `n_extra` argument of `print()` is deprecated as of pillar 1.6.2.</span>
 <span class="co">#&gt; Please use the `max_extra_cols` argument instead.</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 28 × 72</span></span>
-<span class="co">#&gt;    `Record ID` `Repeat Instrument` `Repeat Instanc… `Birth Date` Race  Ethnicity</span>
+<span class="co">#&gt;    `Record ID` `Repeat Instrument` `Repeat Instan…` `Birth Date` Race  Ethnicity</span>
 <span class="co">#&gt;          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    </span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>           1 <span style="color: #BB0000;">NA</span>                                <span style="color: #BB0000;">NA</span> 02/04/1956   White NOT Hisp…</span>
 <span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>           1 Sample Data                        1 <span style="color: #BB0000;">NA</span>           <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>       </span>
@@ -161,16 +161,16 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">pts_smp</span><span class="op">$</span><span class="va">pts</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 8 × 55</span></span>
-<span class="co">#&gt;    ptid complete_pts age_dx race      race4    race3 ethnicity   smoking smoke01</span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 Complete       43.4 White     White    White NOT Hispan… Never         0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 Complete       42.3 White     White    White NOT Hispan… Never         0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 Complete       60.7 Black or… Black o… Black NOT Hispan… Never         0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 Complete       <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    NOT Hispan… Never         0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 Complete       63.4 White     White    White NOT Hispan… Current       1</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 Complete       49.1 White     White    White NOT Hispan… Never         0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">7</span>     7 Complete       59.6 Asian     Asian    Asian NOT Hispan… Never         0</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">8</span>     8 Complete       65.2 White     White    White NOT Hispan… Never         0</span>
+<span class="co">#&gt;    ptid complete_pts age_dx race           race4 race3 ethnicity smoking smoke01</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span>     1 Complete       43.4 White          White White NOT Hisp… Never         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span>     2 Complete       42.3 White          White White NOT Hisp… Never         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span>     3 Complete       60.7 Black or Afri… Blac… Black NOT Hisp… Never         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span>     4 Complete       <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>             <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    NOT Hisp… Never         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span>     5 Complete       63.4 White          White White NOT Hisp… Current       1</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span>     6 Complete       49.1 White          White White NOT Hisp… Never         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">7</span>     7 Complete       59.6 Asian          Asian Asian NOT Hisp… Never         0</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">8</span>     8 Complete       65.2 White          White White NOT Hisp… Never         0</span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 46 more variables: bx_gl_sum &lt;dbl&gt;, bx_gl &lt;fct&gt;, bx_gl34 &lt;fct&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   bx_gl_maj &lt;dbl&gt;, bx_gl_min &lt;dbl&gt;, psa_dx &lt;dbl&gt;, psa_dxcat &lt;fct&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   lnpsa_dx &lt;dbl&gt;, clin_t &lt;fct&gt;, clin_n &lt;fct&gt;, clin_m &lt;fct&gt;,</span></span>
@@ -181,20 +181,20 @@
 
 <span class="va">pts_smp</span><span class="op">$</span><span class="va">smp</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 12 × 39</span></span>
-<span class="co">#&gt;     ptid complete_smp dmpid  hist_smp   hist_cmt dzextent_smp dzextent2 ext_pros</span>
-<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     1 Complete     P-123… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>     2 Complete     P-234… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     3 Complete     P-345… Adenocarc… <span style="color: #BB0000;">NA</span>       Localized    Localized FALSE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     3 Complete     P-345… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>     4 Complete     P-432… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     4 Complete     P-432… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     5 Complete     P-543… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>     5 Complete     P-543… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     6 Complete     P-678… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     7 Complete     P-773… Adenocarc… <span style="color: #BB0000;">NA</span>       Regional no… Regional… FALSE   </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">11</span>     8 Complete     P-883… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">12</span>     8 Complete     P-883… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="co">#&gt;     ptid complete_smp dmpid    hist_smp hist_cmt dzextent_smp dzextent2 ext_pros</span>
+<span class="co">#&gt;    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 1</span>     1 Complete     P-12345… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 2</span>     2 Complete     P-23456… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 3</span>     3 Complete     P-34567… Adenoca… <span style="color: #BB0000;">NA</span>       Localized    Localized FALSE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 4</span>     3 Complete     P-34567… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 5</span>     4 Complete     P-43219… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 6</span>     4 Complete     P-43219… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 7</span>     5 Complete     P-54321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 8</span>     5 Complete     P-54321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;"> 9</span>     6 Complete     P-67895… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">10</span>     7 Complete     P-77320… Adenoca… <span style="color: #BB0000;">NA</span>       Regional no… Regional… FALSE   </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">11</span>     8 Complete     P-88321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">12</span>     8 Complete     P-88321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
 <span class="co">#&gt; <span style="color: #949494;"># … with 31 more variables: ext_lndis &lt;fct&gt;, ext_bone &lt;fct&gt;, ext_vis &lt;fct&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   ext_liver &lt;fct&gt;, ext_lung &lt;fct&gt;, ext_other &lt;fct&gt;, bonevol &lt;fct&gt;,</span></span>
 <span class="co">#&gt; <span style="color: #949494;">#   cntadt &lt;fct&gt;, tissue &lt;fct&gt;, smp_pros &lt;fct&gt;, smp_tissue &lt;fct&gt;,</span></span>
@@ -221,15 +221,15 @@
 
 <span class="va">pts_smp_qcd</span><span class="op">$</span><span class="va">qc_pts</span>
 <span class="co">#&gt; <span style="color: #949494;"># A tibble: 7 × 6</span></span>
-<span class="co">#&gt;   label                                  index included       n  diff excluded  </span>
-<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> All patients                               1 <span style="color: #949494;">&lt;tibble [</span>…     8    <span style="color: #BB0000;">NA</span> <span style="color: #949494;">&lt;NULL&gt;</span>    </span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Incomplete record                          2 <span style="color: #949494;">&lt;tibble [</span>…     8     0 <span style="color: #949494;">&lt;tibble [</span>…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Missing date of birth or diagnosis         3 <span style="color: #949494;">&lt;tibble [</span>…     7     1 <span style="color: #949494;">&lt;tibble [</span>…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Metastatic/CRPC but no associated date     4 <span style="color: #949494;">&lt;tibble [</span>…     7     0 <span style="color: #949494;">&lt;tibble [</span>…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> No lastvisit+met+CRPC date                 5 <span style="color: #949494;">&lt;tibble [</span>…     7     0 <span style="color: #949494;">&lt;tibble [</span>…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Metastases before diagnosis                6 <span style="color: #949494;">&lt;tibble [</span>…     7     0 <span style="color: #949494;">&lt;tibble [</span>…</span>
-<span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Missing stage                              7 <span style="color: #949494;">&lt;tibble [</span>…     7     0 <span style="color: #949494;">&lt;tibble [</span>…</span></code></pre></div>
+<span class="co">#&gt;   label                                  index included     n  diff excluded</span>
+<span class="co">#&gt;   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                  <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">1</span> All patients                               1 &lt;tibble&gt;     8    <span style="color: #BB0000;">NA</span> <span style="color: #949494;">&lt;NULL&gt;</span>  </span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">2</span> Incomplete record                          2 &lt;tibble&gt;     8     0 &lt;tibble&gt;</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">3</span> Missing date of birth or diagnosis         3 &lt;tibble&gt;     7     1 &lt;tibble&gt;</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">4</span> Metastatic/CRPC but no associated date     4 &lt;tibble&gt;     7     0 &lt;tibble&gt;</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">5</span> No lastvisit+met+CRPC date                 5 &lt;tibble&gt;     7     0 &lt;tibble&gt;</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">6</span> Metastases before diagnosis                6 &lt;tibble&gt;     7     0 &lt;tibble&gt;</span>
+<span class="co">#&gt; <span style="color: #BCBCBC;">7</span> Missing stage                              7 &lt;tibble&gt;     7     0 &lt;tibble&gt;</span></code></pre></div>
 <ul>
 <li>Accessing <code>pts_smp_qcd$qc_pts</code> shows that 1 record failed on criterion 3 that filtered for records with missing data of birth or missing date of diagnosis. This record is excluded from the final “quality-controlled” return dataset, <code>pts_smp_qcd$pts</code>. Instead of 8 records before quality control, this dataset only includes records on 7 patients.</li>
 <li>For the sample dataset <code>smp</code>, QC results are accessible as <code>pts_smp_qcd$qc_smp</code> and the final version via <code>pts_smp_qcd$smp</code>. The first step for sample-level data (with <code>index == 2</code>) is to check whether corresponding patient-level passed quality control.</li>
@@ -273,7 +273,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer>

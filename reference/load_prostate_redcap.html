@@ -20,7 +20,7 @@ check_prostate_redcap."><!-- mathjax --><script src="https://cdnjs.cloudflare.co
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prostateredcap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.0-9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
       </span>
     </div>
 
@@ -32,7 +32,7 @@ check_prostate_redcap."><!-- mathjax --><script src="https://cdnjs.cloudflare.co
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -85,26 +85,38 @@ It is recommended that the returned list is next processed by
 <dd><p>CSV file with labels, exported from REDCap.
 Must be the labeled version and must contain dates
 in order to derive time intervals.</p></dd>
+
+
 <dt>deidentify</dt>
 <dd><p>De-identify the returned data set using
 <code><a href="deidentify_prostate_redcap.html">deidentify_prostate_redcap</a></code>? Defaults to
 <code>TRUE</code>. Should only be disabled if additional data need
 to be merged by identifiers, followed by calling
 <code><a href="deidentify_prostate_redcap.html">deidentify_prostate_redcap</a></code> separately.</p></dd>
+
+
 <dt>keep_also</dt>
 <dd><p>Optional. Additional patient-level variables to keep
 without editing. As applicable, they would need to be
 deidentified manually.
 Provide as list with vectors of variable names for baseline and freeze
 forms: <code>list(baseline = c("var1", "var2"), freeze = "varX")</code>.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>List of three labeled tibbles (data frames):</p><ul><li><p><code>pts</code>: Patient-level data</p></li>
+    
+
+<p>List of three labeled tibbles (data frames):</p><ul><li><p><code>pts</code>: Patient-level data</p></li>
 <li><p><code>smp</code>: Sample-level data</p></li>
 <li><p><code>trt</code>: Treatment data</p></li>
-</ul><p>Access variables labels in RStudio via <code><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></code>or using <code><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a>(., "label")</code>.
-The warning message, <code>Duplicated column names deduplicated</code>, is
+</ul><p>Access variables labels in RStudio via <code><a href="https://rdrr.io/r/utils/View.html" class="external-link">View</a></code></p>
+
+
+<p>or using <code><a href="https://rdrr.io/r/base/attr.html" class="external-link">attr</a>(., "label")</code>.</p>
+
+
+<p>The warning message, <code>Duplicated column names deduplicated</code>, is
 expected due to the design of the REDCap dataset. Another warning message
 that a factor does not contain all levels is also possible.</p>
     </div>
@@ -168,16 +180,16 @@ by definition.</p></li>
 <span class="r-in"><span class="co"># Access patient-level data:</span></span>
 <span class="r-in"><span class="va">pts_smp</span><span class="op">$</span><span class="va">pts</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 55</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ptid complete_pts age_dx race      race4    race3 ethnicity   smoking smoke01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1 Complete       43.4 White     White    White NOT Hispan… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2 Complete       42.3 White     White    White NOT Hispan… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3 Complete       60.7 Black or… Black o… Black NOT Hispan… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     4 Complete       <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>        <span style="color: #BB0000;">NA</span>       <span style="color: #BB0000;">NA</span>    NOT Hispan… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>     5 Complete       63.4 White     White    White NOT Hispan… Current       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     6 Complete       49.1 White     White    White NOT Hispan… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>     7 Complete       59.6 Asian     Asian    Asian NOT Hispan… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>     8 Complete       65.2 White     White    White NOT Hispan… Never         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ptid complete_pts age_dx race           race4 race3 ethnicity smoking smoke01</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1 Complete       43.4 White          White White NOT Hisp… Never         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2 Complete       42.3 White          White White NOT Hisp… Never         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3 Complete       60.7 Black or Afri… Blac… Black NOT Hisp… Never         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     4 Complete       <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>             <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    NOT Hisp… Never         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>     5 Complete       63.4 White          White White NOT Hisp… Current       1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     6 Complete       49.1 White          White White NOT Hisp… Never         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>     7 Complete       59.6 Asian          Asian Asian NOT Hisp… Never         0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>     8 Complete       65.2 White          White White NOT Hisp… Never         0</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 46 more variables: bx_gl_sum &lt;dbl&gt;, bx_gl &lt;fct&gt;, bx_gl34 &lt;fct&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   bx_gl_maj &lt;dbl&gt;, bx_gl_min &lt;dbl&gt;, psa_dx &lt;dbl&gt;, psa_dxcat &lt;fct&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   lnpsa_dx &lt;dbl&gt;, clin_t &lt;fct&gt;, clin_n &lt;fct&gt;, clin_m &lt;fct&gt;,</span></span>
@@ -189,20 +201,20 @@ by definition.</p></li>
 <span class="r-in"><span class="co"># Access sample-level data:</span></span>
 <span class="r-in"><span class="va">pts_smp</span><span class="op">$</span><span class="va">smp</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 39</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ptid complete_smp dmpid  hist_smp   hist_cmt dzextent_smp dzextent2 ext_pros</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     1 Complete     P-123… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     2 Complete     P-234… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     3 Complete     P-345… Adenocarc… <span style="color: #BB0000;">NA</span>       Localized    Localized FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     3 Complete     P-345… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     4 Complete     P-432… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     4 Complete     P-432… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     5 Complete     P-543… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     5 Complete     P-543… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     6 Complete     P-678… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     7 Complete     P-773… Adenocarc… <span style="color: #BB0000;">NA</span>       Regional no… Regional… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>     8 Complete     P-883… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     8 Complete     P-883… Adenocarc… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ptid complete_smp dmpid    hist_smp hist_cmt dzextent_smp dzextent2 ext_pros</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     1 Complete     P-12345… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     2 Complete     P-23456… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     3 Complete     P-34567… Adenoca… <span style="color: #BB0000;">NA</span>       Localized    Localized FALSE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     3 Complete     P-34567… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     4 Complete     P-43219… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     4 Complete     P-43219… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     5 Complete     P-54321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     5 Complete     P-54321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     6 Complete     P-67895… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     7 Complete     P-77320… Adenoca… <span style="color: #BB0000;">NA</span>       Regional no… Regional… FALSE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>     8 Complete     P-88321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     8 Complete     P-88321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 31 more variables: ext_lndis &lt;fct&gt;, ext_bone &lt;fct&gt;, ext_vis &lt;fct&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ext_liver &lt;fct&gt;, ext_lung &lt;fct&gt;, ext_other &lt;fct&gt;, bonevol &lt;fct&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   cntadt &lt;fct&gt;, tissue &lt;fct&gt;, smp_pros &lt;fct&gt;, smp_tissue &lt;fct&gt;,</span></span>
@@ -236,7 +248,7 @@ by definition.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
 </div>
 
       </footer></div>
