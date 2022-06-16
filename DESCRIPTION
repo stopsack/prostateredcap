@@ -1,11 +1,11 @@
 Package: prostateredcap
 Title: Load and check the MSK Prostate REDCap Prostate clinical database
-Version: 0.3.0-9000
+Version: 0.3.1
 Authors@R: 
     person(given = "Konrad",
            family = "Stopsack",
            role = c("aut", "cre"),
-           email = "stopsack@mskcc.org",
+           email = "stopsack@post.harvard.edu",
            comment = c(ORCID = "0000-0002-0722-1311"))
 Description: This package loads, merges, reformats, corrects, labels, and 
   quality controls the Prostate REDCap clinical database.
@@ -13,7 +13,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.1
+RoxygenNote: 7.1.2
 Imports: 
     dplyr,
     forcats,
@@ -23,7 +23,8 @@ Imports:
     purrr,
     readr,
     tibble,
-    tidyr
+    tidyr,
+    vctrs
 URL: https://stopsack.github.io/prostateredcap
 BugReports: https://github.com/stopsack/prostateredcap/issues
 Suggests: 

@@ -27,5 +27,3 @@
 #' pts_smp_qc$qc_pts
 #' pts_smp_qc$qc_smp
 #' }
-NULL
-#> NULL

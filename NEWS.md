@@ -1,6 +1,7 @@
-# prostateredcap 0.3.0-9000
+# prostateredcap 0.3.1
 
 * `load_prostate_redcap()`: Fix name repair issues due to tidyverse changes
+* Update manuscript reference
 
 
 # prostateredcap 0.3.0
