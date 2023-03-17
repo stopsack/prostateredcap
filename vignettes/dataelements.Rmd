@@ -74,7 +74,10 @@ Variable | Description          | Levels                | Reasons for missing va
 `ext_pros`    | Disease extent at sampling includes prostate | `TRUE`; `FALSE` | None (`FALSE` if no known prostate disease)
 `ext_lndis`   | Disease extent at sampling includes distant lymph nodes | `TRUE`; `FALSE` | None (`FALSE` if no known distant lymph node)
 `ext_bone`    | Disease extent at sampling includes bone | `TRUE`; `FALSE` | None (`FALSE` if no known bone disease)
-`ext_vis`     | Disease extent at sampling includes visceral disease | `TRUE`; `FALSE` | None (`FALSE` if no known visceral disease)
+`ext_vis`     | Disease extent at sampling includes visceral disease (liver, lung, other soft tissue) | `TRUE`; `FALSE` | None (`FALSE` if no known visceral disease)
+`ext_liver`   | Disease extent at sampling includes liver | `TRUE`; `FALSE` | None (`FALSE` if no known liver disease)
+`ext_lung`    | Disease extent at sampling includes lung | `TRUE`; `FALSE` | None (`FALSE` if no known lung disease)
+`ext_other`   | Disease extent at sampling includes other soft tissue | `TRUE`; `FALSE` | None (`FALSE` if no known other soft tissue)
 `bonevol`     | Volume of bone disease at sample (biopsy) | High-Volume Bone Metastases; Low-Volume Bone Metastases | Unknown or none bone metastases
 `cntadt`      | Sample on continuous androgen deprivation therapy | Yes; No | Unknown
 `tissue`      | Sample tissue | Bone; Liver; Lung; Lymph Node; Other soft tissue; Prostate | None

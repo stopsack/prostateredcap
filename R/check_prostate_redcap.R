@@ -183,7 +183,8 @@ check_prostate_redcap <- function(data,
     qc_smp_data <- qc_smp_data %>%
       select(ptid, dmpid, hist_smp, dzextent_smp, dzextent_seq,
              ext_pros, ext_lndis, ext_bone,
-             ext_vis, bonevol, cntadt, tissue, smp_pros, smp_tissue, primmet_smp,
+             ext_vis, ext_liver, ext_lung, ext_other,
+             bonevol, cntadt, tissue, smp_pros, smp_tissue, primmet_smp,
              age_smp, age_seq, dx_smp_mos, adt_smp_mos, dx_seq_mos, seq_met_mos,
              seq_crpc_mos, seq_os_mos, dzvol, denovom_smp, denovom_seq)
   }
