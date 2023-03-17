@@ -316,7 +316,8 @@ load_prostate_redcap <- function(labeled_csv,
           abs(lubridate::interval(dxdate, met_date) / months(1)) <= 1 ~
           dxdate,  # Metastatic at diagnosis.
         is.na(met_date) & is_met == "No"   ~ lastvisit,  # censor at last visit
-        is.na(met_date) & is_met == "Yes"  ~ NA_real_,   # this should not exist
+        # this case should not exist:
+        is.na(met_date) & is_met == "Yes"  ~ as.Date(NA_real_),
         !is.na(met_date) & is_met == "Yes" ~ met_date),
       is_met   = factor(case_when(
         mstage == "M1" ~ "Yes",
