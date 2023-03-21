@@ -1,7 +1,17 @@
+# prostateredcap 0.3.2
+
+* `load_prostate_redcap()`: {dplyr} 1.1.0 input check compatibility.
+* Return types of visceral sites even if `recommended_only = TRUE`.
+* Define time/event variables for metastasis-free survival.
+* Add metastasis as time origin, in addition to sequencing, diagnosis, and ADT. 
+  Document all available time origins for survival-type analyses in vignette. 
+  Add argument `time_origin` to `load_prostate_redcap()` for easier selection. 
+
+
 # prostateredcap 0.3.1
 
 * `load_prostate_redcap()`: Fix name repair issues due to tidyverse changes
-* Update manuscript reference
+* Update manuscript reference.
 
 
 # prostateredcap 0.3.0
