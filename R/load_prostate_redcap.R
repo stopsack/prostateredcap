@@ -342,6 +342,7 @@ load_prostate_redcap <- function(labeled_csv,
       dx_met_mos   = lubridate::interval(dxdate,   met_date)  / months(1),
       dx_os_mos    = lubridate::interval(dxdate,   lastfu)    / months(1),
       adt_os_mos   = lubridate::interval(adtstart, lastfu)    / months(1),
+      met_os_mos   = lubridate::interval(met_date, lastfu)    / months(1),
       # Metastasis-free survival: until met or death (if no met). If neither,
       # only until last visit (NOT last contact, where met status is unknown)
       dx_mfs_mos   = case_when(
@@ -505,6 +506,9 @@ load_prostate_redcap <- function(labeled_csv,
       seq_met_mos   = lubridate::interval(seqdate,  met_date)  / months(1),
       seq_crpc_mos  = lubridate::interval(seqdate,  crpc_date) / months(1),
       seq_os_mos    = lubridate::interval(seqdate,  lastfu)    / months(1),
+      met_seq_mos   = case_when(
+        seqdate > met_date ~
+          lubridate::interval(met_date, seqdate)  / months(1)),
       seq_mfs_mos   = case_when(
         # Metastasis-free survival: define only if non-metastatic at sequencing
         !(dzextent_seq %in% c("Localized", "Regional nodes")) ~
@@ -694,7 +698,8 @@ load_prostate_redcap <- function(labeled_csv,
     dx_os_mos      = "Overall survival from diagnosis (months)",
     dx_mfs_mos     = "Metastasis-free survival from diagnosis (months)",
     adt_os_mos     = "Overall survival from ADT initiation (months)",
-    crpc_os_mos    = "Overall survival from castration resistance (months)") %>%
+    crpc_os_mos    = "Overall survival from castration resistance (months)",
+    met_os_mos     = "Overall survival from metastasis (months)") %>%
     # reorder variables
     select(ptid, complete_pts, age_dx, race, race4, race3, ethnicity,
            smoking, smoke01, bx_gl_sum, bx_gl, bx_gl34, bx_gl_maj, bx_gl_min,
@@ -705,6 +710,7 @@ load_prostate_redcap <- function(labeled_csv,
            crpc_event, is_met, met_event, is_dead, death_event, dx_bx_mos,
            dx_adt_mos, adt_crpc_mos, dx_crpc_mos, dx_met_mos, dx_os_mos,
            adt_os_mos, crpc_os_mos, everything())
+           met_os_mos,
 
   smp <- smp %>% labelled::set_variable_labels(
     ptid         = "Patient ID",
@@ -735,6 +741,7 @@ load_prostate_redcap <- function(labeled_csv,
     adt_smp_mos  = "ADT to sample (months)",
     dx_seq_mos   = "Diagnosis to sequencing (months)",
     adt_seq_mos  = "ADT to sequencing (months)",
+    met_seq_mos    = "Metastasis to sequencing (months)",
     smp_met_mos  = "Sample to metastases (months)",  # for QC
     smp_os_mos   = "Overall survival from sample (months)",  # for QC
     seq_met_mos  = "Sequencing to metastases (months)",
