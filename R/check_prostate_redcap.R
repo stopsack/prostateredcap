@@ -126,12 +126,13 @@ qc_criteria_smp <- function() {
 #' # Process output of load_prostate_redcap():
 #' pts_smp_qc <- check_prostate_redcap(pts_smp, recommended_only = TRUE)
 #' }
-check_prostate_redcap <- function(data,
-                                  qc_crit_pts = qc_criteria_pts(),
-                                  qc_crit_smp = qc_criteria_smp(),
-                                  qc_level_pts = NULL,
-                                  qc_level_smp = NULL,
                                   recommended_only = FALSE) {
+check_prostate_redcap <- function(
+    data,
+    qc_crit_pts = qc_criteria_pts(),
+    qc_crit_smp = qc_criteria_smp(),
+    qc_level_pts = NULL,
+    qc_level_smp = NULL,
   if(!is.data.frame(data$pts) | !is.data.frame(data$smp))
     stop("Must provide a list with the elements 'pts' and 'smp', both data frames/tibbles.")
 
