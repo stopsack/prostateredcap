@@ -328,6 +328,11 @@ load_prostate_redcap <- function(labeled_csv,
       met_event    = case_when(is_met == "Yes"  ~ 1,
                                is_met == "No"   ~ 0),
       death_event  = if_else(is_dead == "Dead", 1, 0),
+      mfs_event = if_else(is_dead == "Dead" | is_met == "Yes", 1, 0),
+      is_mfs = factor(
+        mfs_event,
+        levels = 0:1,
+        labels = c("Event-free", "Metastasis/death")),
       # Time intervals
       age_dx        = lubridate::interval(dob,     dxdate)    / lubridate::years(1),
       dx_bx_mos    = lubridate::interval(dxdate,   bxdate)    / months(1),
@@ -337,6 +342,12 @@ load_prostate_redcap <- function(labeled_csv,
       dx_met_mos   = lubridate::interval(dxdate,   met_date)  / months(1),
       dx_os_mos    = lubridate::interval(dxdate,   lastfu)    / months(1),
       adt_os_mos   = lubridate::interval(adtstart, lastfu)    / months(1),
+      # Metastasis-free survival: until met or death (if no met). If neither,
+      # only until last visit (NOT last contact, where met status is unknown)
+      dx_mfs_mos   = case_when(
+        is_met == "Yes" ~ dx_met_mos,
+        is_met == "No" & is_dead == "Dead" ~ dx_os_mos,
+        TRUE ~ dx_met_mos),
       crpc_os_mos  = if_else(is_crpc == "Yes",
                              true = lubridate::interval(crpc_date, lastfu) / months(1),
                              false = NA_real_),
@@ -416,7 +427,7 @@ load_prostate_redcap <- function(labeled_csv,
       select(., any_of(keep_also$sample))) %>%
     # Derive variables for which data from "pts" are needed:
     left_join(pts %>% select(ptid, stage, age_dx, dxdate, met_date,
-                             is_met_for_qc = is_met,
+                             is_met_for_qc = is_met, is_dead,
                              crpc_date, is_crpc, lastfu, adtstart),
               by = "ptid") %>%
     mutate(
@@ -494,6 +505,18 @@ load_prostate_redcap <- function(labeled_csv,
       seq_met_mos   = lubridate::interval(seqdate,  met_date)  / months(1),
       seq_crpc_mos  = lubridate::interval(seqdate,  crpc_date) / months(1),
       seq_os_mos    = lubridate::interval(seqdate,  lastfu)    / months(1),
+      seq_mfs_mos   = case_when(
+        # Metastasis-free survival: define only if non-metastatic at sequencing
+        !(dzextent_seq %in% c("Localized", "Regional nodes")) ~
+            NA_real_,
+        # Follow until met or death (if no met). If neither, follow
+        # only until last visit (NOT last contact, where met status is unknown)
+        is_met_for_qc == "Yes" ~
+          lubridate::interval(seqdate, met_date) / months(1),
+        is_met_for_qc == "No" & is_dead == "Dead" ~
+          lubridate::interval(seqdate, lastfu) / months(1),
+        TRUE ~
+          lubridate::interval(seqdate, met_date) / months(1)),
       dzvol         = factor(case_when(
         str_detect(string = as.character(dzextent_smp), pattern = "Metastatic") &
           (bonevol != "High-Volume Bone Metastases" | is.na(bonevol)) &
@@ -515,11 +538,11 @@ load_prostate_redcap <- function(labeled_csv,
           stage == "M1" ~ "De-novo metastatic")),
       stage_for_qc = stage) %>%
     # Left-censor follow-up for times starting at sequencing
-    mutate_at(.vars = vars(seq_os_mos, seq_crpc_mos, seq_met_mos),
+    mutate_at(.vars = vars(seq_os_mos, seq_crpc_mos, seq_met_mos, seq_mfs_mos),
               .funs = ~if_else(. <= 0, true = NA_real_, false = .)) %>%
     # remove variables from "pts":
     select(-stage, -age_dx, -dxdate, -met_date, -crpc_date,
-           -is_crpc, -lastfu, -adtstart)
+           -is_crpc, -is_dead, -lastfu, -adtstart)
 
 
   ####
@@ -659,6 +682,8 @@ load_prostate_redcap <- function(labeled_csv,
     crpc_event     = "Castration resistant",
     is_met         = "Metastatic",
     met_event      = "Metastatic",
+    is_mfs         = "Metastasis or death",
+    mfs_event      = "Metastasis or death",
     is_dead        = "Death",
     death_event    = "Death",
     dx_bx_mos      = "Diagnosis to biopsy (months)",
@@ -667,6 +692,7 @@ load_prostate_redcap <- function(labeled_csv,
     dx_crpc_mos    = "Diagnosis to castration resistance (months)",
     dx_met_mos     = "Diagnosis to metastasis (months)",
     dx_os_mos      = "Overall survival from diagnosis (months)",
+    dx_mfs_mos     = "Metastasis-free survival from diagnosis (months)",
     adt_os_mos     = "Overall survival from ADT initiation (months)",
     crpc_os_mos    = "Overall survival from castration resistance (months)") %>%
     # reorder variables
@@ -714,6 +740,7 @@ load_prostate_redcap <- function(labeled_csv,
     seq_met_mos  = "Sequencing to metastases (months)",
     seq_crpc_mos = "Sequencing to castration resistance (months)",
     seq_os_mos   = "Overall survival from sequencing (months)",
+    seq_mfs_mos  = "Metastasis-free survival from sequencing (months)",
     dzvol        = "Volume of disease",
     denovom_smp  = "Timing of metastases",
     denovom_seq  = "Timing of metastases")
