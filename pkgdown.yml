@@ -1,10 +1,10 @@
-pandoc: 2.7.3
-pkgdown: 2.0.4
+pandoc: 2.19.2
+pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   dataelements: dataelements.html
   prostateredcap: prostateredcap.html
-last_built: 2022-06-16T17:23Z
+last_built: 2023-03-21T14:07Z
 urls:
   reference: https://stopsack.github.io/prostateredcap/reference
   article: https://stopsack.github.io/prostateredcap/articles

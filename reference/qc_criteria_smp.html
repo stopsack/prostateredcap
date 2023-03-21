@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prostateredcap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
@@ -66,7 +66,7 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">qc_criteria_smp</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">qc_criteria_smp</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="value">
@@ -84,8 +84,8 @@ for restriction to observations that pass the criterion.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Show all criteria:</span></span>
-<span class="r-in"><span class="fu">qc_criteria_smp</span><span class="op">(</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Show all criteria:</span></span></span>
+<span class="r-in"><span><span class="fu">qc_criteria_smp</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 10 × 3</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    label                                               filter_criterion index</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>                                               <span style="color: #949494; font-style: italic;">&lt;list&gt;</span>           <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span>
@@ -99,9 +99,9 @@ for restriction to observations that pass the criterion.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span> Metastatic sample; met_date after sample            <span style="color: #949494;">&lt;language&gt;</span>           8</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span> Localized sample; stage N1 or M1                    <span style="color: #949494;">&lt;language&gt;</span>           9</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span> Regional nodes sample; stage M1                     <span style="color: #949494;">&lt;language&gt;</span>          10</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Show code for criterion #4:</span></span>
-<span class="r-in"><span class="fu">qc_criteria_smp</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">filter_criterion</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Show code for criterion #4:</span></span></span>
+<span class="r-in"><span><span class="fu">qc_criteria_smp</span><span class="op">(</span><span class="op">)</span><span class="op">$</span><span class="va">filter_criterion</span><span class="op">[[</span><span class="fl">4</span><span class="op">]</span><span class="op">]</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> !is.na(dx_smp_mos)</span>
 </code></pre></div>
     </div>
@@ -117,7 +117,7 @@ for restriction to observations that pass the criterion.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

@@ -20,7 +20,7 @@ check_prostate_redcap."><!-- mathjax --><script src="https://cdnjs.cloudflare.co
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">prostateredcap</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.3.2</span>
       </span>
     </div>
 
@@ -72,11 +72,11 @@ It is recommended that the returned list is next processed by
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">load_prostate_redcap</span><span class="op">(</span>
-  <span class="va">labeled_csv</span>,
-  deidentify <span class="op">=</span> <span class="cn">TRUE</span>,
-  keep_also <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>baseline <span class="op">=</span> <span class="cn">NULL</span>, sample <span class="op">=</span> <span class="cn">NULL</span>, freeze <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">load_prostate_redcap</span><span class="op">(</span></span>
+<span>  <span class="va">labeled_csv</span>,</span>
+<span>  deidentify <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  keep_also <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>baseline <span class="op">=</span> <span class="cn">NULL</span>, sample <span class="op">=</span> <span class="cn">NULL</span>, freeze <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -162,69 +162,85 @@ by definition.</p></li>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Get path to toy data provided by the package:</span></span>
-<span class="r-in"><span class="va">example_csv_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,</span>
-<span class="r-in">  <span class="st">"SampleGUPIMPACTDatab_DATA_LABELS_2021-05-26.csv"</span>,</span>
-<span class="r-in">  package <span class="op">=</span> <span class="st">"prostateredcap"</span>,</span>
-<span class="r-in">  mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Load data:</span></span>
-<span class="r-in"><span class="va">pts_smp</span> <span class="op">&lt;-</span> <span class="fu">load_prostate_redcap</span><span class="op">(</span>labeled_csv <span class="op">=</span> <span class="va">example_csv_file</span><span class="op">)</span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Unknown levels in `f`: T1/T2 NX M0, T3 N0 M0, T3 NX M0, T4 M0, TX NX M0</span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Get path to toy data provided by the package:</span></span></span>
+<span class="r-in"><span><span class="va">example_csv_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"extdata"</span>,</span></span>
+<span class="r-in"><span>  <span class="st">"SampleGUPIMPACTDatab_DATA_LABELS_2021-05-26.csv"</span>,</span></span>
+<span class="r-in"><span>  package <span class="op">=</span> <span class="st">"prostateredcap"</span>,</span></span>
+<span class="r-in"><span>  mustWork <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Load data:</span></span></span>
+<span class="r-in"><span><span class="va">pts_smp</span> <span class="op">&lt;-</span> <span class="fu">load_prostate_redcap</span><span class="op">(</span>labeled_csv <span class="op">=</span> <span class="va">example_csv_file</span><span class="op">)</span></span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There was 1 warning in `mutate()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `stage_detailed = fct_relevel(...)`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> 5 unknown levels in `f`: T1/T2 NX M0, T3 N0 M0, T3 NX M0, T4 M0, and TX NX M0</span>
 <span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Expected 4 pieces. Missing pieces filled with `NA` in 2 rows [3, 10].</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Unknown levels in `f`: Liver</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Unknown levels in `f`: Regional nodes, Metastatic, variant histology</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Unknown levels in `f`: Non-metastatic castration-resistant, Metastatic, variant histology</span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Unknown levels in `f`: Localized, Regional nodes, Metastatic hormone-sensitive, Non-metastatic castration-resistant, Metastatic castration-resistant, Metastatic, variant histology</span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Access patient-level data:</span></span>
-<span class="r-in"><span class="va">pts_smp</span><span class="op">$</span><span class="va">pts</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 55</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    ptid complete_pts age_dx race           race4 race3 ethnicity smoking smoke01</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1 Complete       43.4 White          White White NOT Hisp… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2 Complete       42.3 White          White White NOT Hisp… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3 Complete       60.7 Black or Afri… Blac… Black NOT Hisp… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     4 Complete       <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>             <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    NOT Hisp… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>     5 Complete       63.4 White          White White NOT Hisp… Current       1</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     6 Complete       49.1 White          White White NOT Hisp… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>     7 Complete       59.6 Asian          Asian Asian NOT Hisp… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>     8 Complete       65.2 White          White White NOT Hisp… Never         0</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 46 more variables: bx_gl_sum &lt;dbl&gt;, bx_gl &lt;fct&gt;, bx_gl34 &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   bx_gl_maj &lt;dbl&gt;, bx_gl_min &lt;dbl&gt;, psa_dx &lt;dbl&gt;, psa_dxcat &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   lnpsa_dx &lt;dbl&gt;, clin_t &lt;fct&gt;, clin_n &lt;fct&gt;, clin_m &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   stage_detailed &lt;fct&gt;, stage &lt;fct&gt;, clin_tstage &lt;fct&gt;, clin_nstage &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   mstage &lt;fct&gt;, rxprim &lt;fct&gt;, rxprim_oth &lt;chr&gt;, rxprim_rp &lt;lgl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rxprim_adt &lt;lgl&gt;, rxprim_chemo &lt;lgl&gt;, rxprim_xrt &lt;lgl&gt;, rxprim_other &lt;lgl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rp_gl_sum &lt;dbl&gt;, rp_gl34 &lt;fct&gt;, rp_gl_maj &lt;dbl&gt;, rp_gl_min &lt;dbl&gt;, …</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Access sample-level data:</span></span>
-<span class="r-in"><span class="va">pts_smp</span><span class="op">$</span><span class="va">smp</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 39</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     ptid complete_smp dmpid    hist_smp hist_cmt dzextent_smp dzextent2 ext_pros</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     1 Complete     P-12345… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     2 Complete     P-23456… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     3 Complete     P-34567… Adenoca… <span style="color: #BB0000;">NA</span>       Localized    Localized FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     3 Complete     P-34567… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     4 Complete     P-43219… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     4 Complete     P-43219… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     5 Complete     P-54321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     5 Complete     P-54321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     6 Complete     P-67895… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     7 Complete     P-77320… Adenoca… <span style="color: #BB0000;">NA</span>       Regional no… Regional… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>     8 Complete     P-88321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… TRUE    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     8 Complete     P-88321… Adenoca… <span style="color: #BB0000;">NA</span>       Metastatic … Metastat… FALSE   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 31 more variables: ext_lndis &lt;fct&gt;, ext_bone &lt;fct&gt;, ext_vis &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ext_liver &lt;fct&gt;, ext_lung &lt;fct&gt;, ext_other &lt;fct&gt;, bonevol &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   cntadt &lt;fct&gt;, tissue &lt;fct&gt;, smp_pros &lt;fct&gt;, smp_tissue &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   pur_rev &lt;fct&gt;, pur_remov &lt;fct&gt;, is_met_for_qc &lt;fct&gt;, dzextent_seq &lt;fct&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   primmet_smp &lt;chr&gt;, age_smp &lt;dbl&gt;, age_seq &lt;dbl&gt;, dx_smp_mos &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   adt_smp_mos &lt;dbl&gt;, dx_seq_mos &lt;dbl&gt;, adt_seq_mos &lt;dbl&gt;, smp_met_mos &lt;dbl&gt;,</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   smp_os_mos &lt;dbl&gt;, seq_met_mos &lt;dbl&gt;, seq_crpc_mos &lt;dbl&gt;, …</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Access treatment data:</span></span>
-<span class="r-in"><span class="va">pts_smp</span><span class="op">$</span><span class="va">trt</span></span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There was 1 warning in `transmute()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `smp_tissue = fct_collapse(smp_tissue, Visceral = c("Liver",</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span>   "Lung"))`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Unknown levels in `f`: Liver</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There were 2 warnings in `mutate()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> The first warning was:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `dzextent_seq = fct_relevel(...)`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> 2 unknown levels in `f`: Regional nodes and Metastatic, variant histology</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Run `dplyr::last_dplyr_warnings()` to see the 1 remaining warning.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>There was 1 warning in `mutate()`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> In argument: `rx_dzextent = fct_relevel(...)`.</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> Caused by warning:</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> 6 unknown levels in `f`: Localized, Regional nodes, Metastatic</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> hormone-sensitive, Non-metastatic castration-resistant, Metastatic</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> castration-resistant, and Metastatic, variant histology</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Access patient-level data:</span></span></span>
+<span class="r-in"><span><span class="va">pts_smp</span><span class="op">$</span><span class="va">pts</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 8 × 59</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    ptid complet…¹ age_dx race  race4 race3 ethni…² smoking smoke01 bx_gl…³ bx_gl</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">1</span>     1 Complete    43.4 White White White NOT Hi… Never         0       7 7    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">2</span>     2 Complete    42.3 White White White NOT Hi… Never         0       9 9-10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span>     3 Complete    60.7 Blac… Blac… Black NOT Hi… Never         0       7 7    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">4</span>     4 Complete    <span style="color: #BB0000;">NA</span>   <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    <span style="color: #BB0000;">NA</span>    NOT Hi… Never         0       9 9-10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">5</span>     5 Complete    63.4 White White White NOT Hi… Current       1       7 7    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">6</span>     6 Complete    49.1 White White White NOT Hi… Never         0       7 7    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">7</span>     7 Complete    59.6 Asian Asian Asian NOT Hi… Never         0       9 9-10 </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">8</span>     8 Complete    65.2 White White White NOT Hi… Never         0       8 8    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 48 more variables: bx_gl34 &lt;fct&gt;, bx_gl_maj &lt;dbl&gt;, bx_gl_min &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   psa_dx &lt;dbl&gt;, psa_dxcat &lt;fct&gt;, lnpsa_dx &lt;dbl&gt;, clin_t &lt;fct&gt;, clin_n &lt;fct&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   clin_m &lt;fct&gt;, stage_detailed &lt;fct&gt;, stage &lt;fct&gt;, clin_tstage &lt;fct&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   clin_nstage &lt;fct&gt;, mstage &lt;fct&gt;, rxprim &lt;fct&gt;, rxprim_oth &lt;chr&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rxprim_rp &lt;lgl&gt;, rxprim_adt &lt;lgl&gt;, rxprim_chemo &lt;lgl&gt;, rxprim_xrt &lt;lgl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rxprim_other &lt;lgl&gt;, rp_gl_sum &lt;dbl&gt;, rp_gl34 &lt;fct&gt;, rp_gl_maj &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rp_gl_min &lt;dbl&gt;, path_t &lt;fct&gt;, path_n &lt;fct&gt;, is_crpc &lt;fct&gt;, …</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Access sample-level data:</span></span></span>
+<span class="r-in"><span><span class="va">pts_smp</span><span class="op">$</span><span class="va">smp</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 12 × 41</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     ptid complet…¹ dmpid hist_…² hist_…³ dzext…⁴ dzext…⁵ ext_p…⁶ ext_l…⁷ ext_b…⁸</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>    <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>     <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span> <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;fct&gt;</span>  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 1</span>     1 Complete  P-12… Adenoc… <span style="color: #BB0000;">NA</span>      Metast… Metast… FALSE   FALSE   TRUE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 2</span>     2 Complete  P-23… Adenoc… <span style="color: #BB0000;">NA</span>      Metast… Metast… TRUE    TRUE    TRUE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 3</span>     3 Complete  P-34… Adenoc… <span style="color: #BB0000;">NA</span>      Locali… Locali… FALSE   FALSE   FALSE  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 4</span>     3 Complete  P-34… Adenoc… <span style="color: #BB0000;">NA</span>      Metast… Metast… FALSE   FALSE   FALSE  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 5</span>     4 Complete  P-43… Adenoc… <span style="color: #BB0000;">NA</span>      Metast… Metast… FALSE   FALSE   FALSE  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 6</span>     4 Complete  P-43… Adenoc… <span style="color: #BB0000;">NA</span>      Metast… Metast… FALSE   FALSE   TRUE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 7</span>     5 Complete  P-54… Adenoc… <span style="color: #BB0000;">NA</span>      Metast… Metast… TRUE    FALSE   TRUE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 8</span>     5 Complete  P-54… Adenoc… <span style="color: #BB0000;">NA</span>      Metast… Metast… TRUE    FALSE   TRUE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;"> 9</span>     6 Complete  P-67… Adenoc… <span style="color: #BB0000;">NA</span>      Metast… Metast… FALSE   TRUE    TRUE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">10</span>     7 Complete  P-77… Adenoc… <span style="color: #BB0000;">NA</span>      Region… Region… FALSE   FALSE   FALSE  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">11</span>     8 Complete  P-88… Adenoc… <span style="color: #BB0000;">NA</span>      Metast… Metast… TRUE    FALSE   TRUE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">12</span>     8 Complete  P-88… Adenoc… <span style="color: #BB0000;">NA</span>      Metast… Metast… FALSE   FALSE   TRUE   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 31 more variables: ext_vis &lt;fct&gt;, ext_liver &lt;fct&gt;, ext_lung &lt;fct&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   ext_other &lt;fct&gt;, bonevol &lt;fct&gt;, cntadt &lt;fct&gt;, tissue &lt;fct&gt;, smp_pros &lt;fct&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   smp_tissue &lt;fct&gt;, pur_rev &lt;fct&gt;, pur_remov &lt;fct&gt;, is_met_for_qc &lt;fct&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   dzextent_seq &lt;fct&gt;, primmet_smp &lt;chr&gt;, age_smp &lt;dbl&gt;, age_seq &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   dx_smp_mos &lt;dbl&gt;, adt_smp_mos &lt;dbl&gt;, dx_seq_mos &lt;dbl&gt;, adt_seq_mos &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   smp_met_mos &lt;dbl&gt;, smp_os_mos &lt;dbl&gt;, seq_met_mos &lt;dbl&gt;, seq_crpc_mos &lt;dbl&gt;,</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   seq_os_mos &lt;dbl&gt;, met_seq_mos &lt;dbl&gt;, seq_mfs_mos &lt;dbl&gt;, dzvol &lt;fct&gt;, …</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Access treatment data:</span></span></span>
+<span class="r-in"><span><span class="va">pts_smp</span><span class="op">$</span><span class="va">trt</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 0 × 19</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># … with 19 variables: ptid &lt;int&gt;, rx_line &lt;chr&gt;, rx_name &lt;fct&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rx_name_parpi &lt;chr&gt;, rx_censor &lt;chr&gt;, rx_stop_reason &lt;fct&gt;,</span></span>
@@ -232,8 +248,8 @@ by definition.</p></li>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rx_ext_lndis &lt;fct&gt;, rx_ext_bone &lt;fct&gt;, rx_ext_vis &lt;fct&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rx_ext_liver &lt;fct&gt;, rx_ext_lung &lt;fct&gt;, rx_ext_other &lt;fct&gt;,</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;">#   rx_bonevol &lt;fct&gt;, dx_rx_start_mos &lt;dbl&gt;, dx_rx_end_mos &lt;dbl&gt;, rx_wks &lt;dbl&gt;</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Pass 'pts_smp' to check_prostate_redcap() next</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Pass 'pts_smp' to check_prostate_redcap() next</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -248,7 +264,7 @@ by definition.</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.4.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
