@@ -10,7 +10,8 @@ check_prostate_redcap(
   qc_crit_smp = qc_criteria_smp(),
   qc_level_pts = NULL,
   qc_level_smp = NULL,
-  recommended_only = FALSE
+  recommended_only = FALSE,
+  time_origin = c("seq", "dx", "adt", "met")
 )
 }
 \arguments{
@@ -37,6 +38,12 @@ no exclusions.}
 \item{recommended_only}{Return qc'd \code{pts} and \code{smp}
 restricted to variables that are recommended for use in analyses?
 Defaults to \code{FALSE} but is recommended for use.}
+
+\item{time_origin}{Time origin for follow-up time scales: sequencing
+(\code{"seq"}), diagnosis (\code{"dx"}), from initiation of androgen
+deprivaiton therapy \code{"adt"}, or from metastasis (\code{"met"})?
+Provide multiple origins as, e.g., \code{c("dx", "seq")}.
+Returns all variables by default or if \code{recommended_only = FALSE}.}
 }
 \value{
 List:

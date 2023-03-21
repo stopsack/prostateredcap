@@ -108,9 +108,11 @@ Time variables will be missing:
 * If the patient is not at risk because the event cannot occur, *e.g.*, a variant histology indicates castration resistance and the patient will by definition not be followed for this outcome.
 * If the event time is unknown.
 
-Outcome: Transition | Population of Interest | Event variable (Descriptive) | Event variable (modeling) | Time variable
---------------+-----------------+---------------+------------+----------------
-**Metastasis:** Sequencing to metastasis | Disease extent "Localized" or "Regional nodes" at sequencing | `is_met`: No; Yes | `met_event`: 0; 1 | `seq_met_mos`: Months from sequencing to metastasis or last clinic visit
-**CRPC:** Sequencing to castration resistance | Disease extent "Localized", "Regional nodes", or "Metastatic hormone-sensitive" at sequencing | `is_crpc`: No; Yes; N/A-Pure Other Histology at Diagnosis; N/A-Pure small cell/neuroendocrine at diagnosis | `crpc_event`: 0; 1; missing (if variant histology) | `seq_crpc_mos`: Months from sequencing to castration resistance or last clinic visit
-**Overall survival:** Sequencing to death | All | `is_dead`: Alive; Dead | `death_event`: 0; 1 | `seq_os_mos`: Months from sequencing to death or last contact
+Outcome: Transition | Population of Interest | Event variable (Descriptive) | Event variable (modeling) | Time variable (from sequencing) | Time variables (late-entry models)^1^
+--------------+-----------------+---------------+------------+----------------+----------------
+**Metastasis:** Sequencing to metastasis | Disease extent "Localized" or "Regional nodes" at sequencing | `is_met`: No; Yes | `met_event`: 0; 1 | `seq_met_mos`: Months from sequencing to metastasis or last clinic visit | `dx_met_mos`: Months from diagnosis to metastasis or last clinic visit
 **Metastasis-free survival:** Sequencing to metastasis or death from any cause (composite endpoint) | Disease extent "Localized" or "Regional nodes" at sequencing | `is_mfs`: Event-free; Metastasis/death | `mfs_event`: 0; 1 | `seq_mfs_mos`: Months from sequencing to metastasis, death, or last clinic visit (if neither)  | `dx_mfs_mos`: Months from diagnosis to metastasis, death, or last clinic visit (if neither)
+**CRPC:** Sequencing to castration resistance | Disease extent "Localized", "Regional nodes", or "Metastatic hormone-sensitive" at sequencing | `is_crpc`: No; Yes; N/A-Pure Other Histology at Diagnosis; N/A-Pure small cell/neuroendocrine at diagnosis | `crpc_event`: 0; 1; missing (if variant histology) | `seq_crpc_mos`: Months from sequencing to castration resistance or last clinic visit |  `dx_crpc_mos`: Months from diagnosis to castration resistance or last clinic visit
+**Overall survival:** Sequencing to death | All | `is_dead`: Alive; Dead | `death_event`: 0; 1 | `seq_os_mos`: Months from sequencing to death or last contact | `dx_os_mos`: Months from diagnosis to death or last contact; `adt_os_mos`: Months from ADT initiation to death or last contact; `met_os_mos`: Months from metastasis to death or last contact
+
+^1^ In late entry models, participants should enter risk sets at the time of sequencing using appropriate variables, *i.e.*, `dx_seq_mos` (diagnosis to sequencing), `adt_seq_mos` (ADT initiation to sequencing), or `met_seq_mos` (metastasis to sequencing).

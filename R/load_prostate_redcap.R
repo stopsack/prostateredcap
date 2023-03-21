@@ -707,10 +707,11 @@ load_prostate_redcap <- function(labeled_csv,
            stage, clin_tstage, clin_nstage, mstage, rxprim, rxprim_oth,
            rxprim_rp, rxprim_adt, rxprim_chemo, rxprim_xrt, rxprim_other,
            rp_gl_sum, rp_gl34, rp_gl_maj, rp_gl_min, path_t, path_n, is_crpc,
-           crpc_event, is_met, met_event, is_dead, death_event, dx_bx_mos,
-           dx_adt_mos, adt_crpc_mos, dx_crpc_mos, dx_met_mos, dx_os_mos,
-           adt_os_mos, crpc_os_mos, everything())
+           crpc_event, is_met, met_event, is_dead, death_event, is_mfs,
+           mfs_event, dx_bx_mos, dx_adt_mos, adt_crpc_mos, dx_crpc_mos,
+           dx_met_mos, dx_os_mos, dx_mfs_mos, adt_os_mos, crpc_os_mos,
            met_os_mos,
+           everything())
 
   smp <- smp %>% labelled::set_variable_labels(
     ptid         = "Patient ID",

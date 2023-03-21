@@ -106,6 +106,11 @@ qc_criteria_smp <- function() {
 #' @param recommended_only Return qc'd \code{pts} and \code{smp}
 #'   restricted to variables that are recommended for use in analyses?
 #'   Defaults to \code{FALSE} but is recommended for use.
+#' @param time_origin Time origin for follow-up time scales: sequencing
+#'   (\code{"seq"}), diagnosis (\code{"dx"}), from initiation of androgen
+#'   deprivaiton therapy \code{"adt"}, or from metastasis (\code{"met"})?
+#'   Provide multiple origins as, e.g., \code{c("dx", "seq")}.
+#'   Returns all variables by default or if \code{recommended_only = FALSE}.
 #'
 #' @return List:
 #'
@@ -126,13 +131,14 @@ qc_criteria_smp <- function() {
 #' # Process output of load_prostate_redcap():
 #' pts_smp_qc <- check_prostate_redcap(pts_smp, recommended_only = TRUE)
 #' }
-                                  recommended_only = FALSE) {
 check_prostate_redcap <- function(
     data,
     qc_crit_pts = qc_criteria_pts(),
     qc_crit_smp = qc_criteria_smp(),
     qc_level_pts = NULL,
     qc_level_smp = NULL,
+    recommended_only = FALSE,
+    time_origin = c("seq", "dx", "adt", "met")) {
   if(!is.data.frame(data$pts) | !is.data.frame(data$smp))
     stop("Must provide a list with the elements 'pts' and 'smp', both data frames/tibbles.")
 
@@ -172,6 +178,17 @@ check_prostate_redcap <- function(
     select(-stage_for_qc, -is_met_for_qc, -complete_smp) %>%
     labelled::copy_labels(from = data$smp)
 
+  # Time variables
+  timevars <- list(
+    seq = c("seq_os_mos", "seq_met_mos", "seq_mfs_mos", "seq_crpc_mos"),
+    dx  = c("dx_seq_mos",  "dx_os_mos", "dx_met_mos", "dx_mfs_mos", "dx_crpc_mos"),
+    adt = c("adt_seq_mos", "adt_os_mos", "adt_crpc_mos"),
+    met = c("met_seq_mos", "met_os_mos"))
+  time_origin <- match.arg(
+    arg = time_origin,
+    several.ok = TRUE)
+  timevars <- flatten_chr(timevars[time_origin])
+
   # Optional: Return only variables in qc'd 'pts' and 'smp' tibbles
   # that are recommended for analyses
   if(recommended_only == TRUE) {
@@ -180,14 +197,16 @@ check_prostate_redcap <- function(
              lnpsa_dx, stage, clin_tstage, clin_nstage, mstage, rxprim, rxprim_oth,
              rxprim_rp, rxprim_adt, rxprim_chemo, rxprim_xrt, rxprim_other,
              rp_gl34, path_t, path_n, is_crpc, crpc_event, is_met,
-             met_event, is_dead, death_event)
+             met_event, is_dead, death_event, is_mfs, mfs_event,
+             any_of(timevars))
     qc_smp_data <- qc_smp_data %>%
       select(ptid, dmpid, hist_smp, dzextent_smp, dzextent_seq,
              ext_pros, ext_lndis, ext_bone,
              ext_vis, ext_liver, ext_lung, ext_other,
              bonevol, cntadt, tissue, smp_pros, smp_tissue, primmet_smp,
-             age_smp, age_seq, dx_smp_mos, adt_smp_mos, dx_seq_mos, seq_met_mos,
-             seq_crpc_mos, seq_os_mos, dzvol, denovom_smp, denovom_seq)
+             age_smp, age_seq, dx_smp_mos, adt_smp_mos, dx_seq_mos,
+             dzvol, denovom_smp, denovom_seq,
+             any_of(timevars))
   }
 
   list(pts = qc_pts_data, smp = qc_smp_data,
