@@ -38,7 +38,7 @@ raw_data <- system.file("extdata",
                         package = "prostateredcap")
 
 readr::read_csv(file = raw_data) %>% 
-  print(n_extra = 0)  # do not print all other columns
+  print(max_extra_cols = 0)  # do not print all other columns
 ```
 
 The dataset, as a typical REDCap export, contains multiple rows per person, with each of the REDCap "forms" (baseline data, sample data, ...) in a separate row and blank values for variables not part of that "form."
