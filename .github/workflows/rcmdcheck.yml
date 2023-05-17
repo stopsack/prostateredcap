@@ -23,8 +23,8 @@ jobs:
           - { os: ubuntu-latest, r: "release" }
 
     steps:
-      - name: Checkout V2
-        uses: actions/checkout@v2
+      - name: Checkout V3
+        uses: actions/checkout@v3
 
       - name: Set up R ${{ matrix.r-version }}
         uses: r-lib/actions/setup-r@HEAD
