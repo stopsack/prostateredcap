@@ -22,6 +22,13 @@ jobs:
           #- { os: macOS-latest, r: "devel" }
           - { os: ubuntu-latest, r: "release" }
 
+
+    env:
+      R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
+      CRAN: ${{ matrix.config.cran }}
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
     steps:
       - name: Checkout V3
         uses: actions/checkout@v3
